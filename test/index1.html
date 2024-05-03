@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航页面</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .shell {
+            height: 100vh;
+            display: flex;
+        }
+
+        .box {
+            flex: 1;
+            min-width: 0;
+            box-shadow: -20px 0 20px 5px rgba(255, 255, 255, 0.7);
+            transition: flex 0.8s;
+            background-size: cover;
+            background-position: center;
+            display: grid;
+            place-items: center;
+            border: 10px solid #fff;
+        }
+
+        .box:hover {
+            flex: 2;
+        }
+
+        .box:hover .text {
+            animation: appear 0.8s forwards 0.3s;
+        }
+
+        .img1 {
+            background-image: url(./img/1.png);
+        }
+
+        .img2 {
+            background-image: url(./img/2.png);
+        }
+
+        .img3 {
+            background-image: url(./img/3.png);
+        }
+
+        .img4 {
+            background-image: url(./img/4.png);
+        }
+
+        .text {
+            padding: 45px 75px;
+            opacity: 0;
+            color: rgb(255, 255, 255);
+            /* height: 380px; */
+            width: 600px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        header {
+            height: 73px;
+            font-size: 65px;
+            font-family: 华文中宋;
+            line-height: 65px;
+            font-weight: bold;
+            border-bottom: 2px solid white;
+        }
+
+        .title {
+            display: inline-block;
+            height: 65px;
+            text-decoration: underline;
+            text-underline-offset: 10px;
+            text-decoration-thickness: 4px;
+        }
+
+        .num {
+            margin-left: -18px;
+        }
+
+        .text p {
+            margin: 30px 0;
+            font-size: 30px;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shell">
+        <div class="box img1">
+            <div class="text">
+                <header>
+                    <span class="title">NO.</span>
+                    <span class="num">1</span>
+                </header>
+                <p>
+                    乐队的吉他手、作词担当。
+                    严重的沟通障碍症患者，不敢和人主动搭话。
+                    内心话语远远多于实际说出来的。经常做出一些常人难以理解的行动。
+                    在网络上以“Guitar Hero”的名义活跃着，拥有大量粉丝。昵称是“小波奇（ぼっちちゃん）”（和名字结合成“一人ぼっち”）一里波知既视感
+                </p>
+            </div>
+        </div>
+        <div class="box img2">
+            <div class="text">
+                <header>
+                    <span class="title">NO.</span>
+                    <span class="num">2</span>
+                </header>
+                <p>
+                    乐队的吉他手和歌手，和波奇是校友。
+                    社交圈广，有很多朋友的现充。
+                    其实不会弹吉他，因为憧憬凉前辈而加入了虹夏的乐队，一直瞒着乐队的其他成员，直到第一次演出前退出乐队逃跑了。
+                    在波奇的帮助下和乐队成员和解，重新加入乐队。
+                </p>
+            </div>
+        </div>
+        <div class="box img3">
+            <div class="text">
+                <header>
+                    <span class="title">NO.</span>
+                    <span class="num">3</span>
+                </header>
+                <p>
+                    乐队的鼓手。
+                    在公园中发现了背着吉他包灰心丧气的波奇，并强拉她加入了“结束乐队”。
+                    乐队的润滑剂，善于交流。穿着也比较时尚。
+                    将自己姐姐的Livehouse作为乐队活动地点。平常也会在Livehouse打工。
+                </p>
+            </div>
+        </div>
+        <div class="box img4">
+            <div class="text">
+                <header>
+                    <span class="title">NO.</span>
+                    <span class="num">4</span>
+                </header>
+                <p>
+                    乐队的贝斯手、作曲担当。
+                    被别人叫做怪人会很兴奋的怪人。
+                    表情变化少，和波奇一样没什么朋友。曾经因为过于孤僻而被波奇当成是社恐同类却发现只是喜欢一个人待着而已。
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

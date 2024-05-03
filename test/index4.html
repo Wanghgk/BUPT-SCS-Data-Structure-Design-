@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H5 整屏滑动</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .body {
+      height: 100vh;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+    }
+
+    section {
+      width: 100vw;
+      height: 100vh;
+      scroll-snap-align: start;
+      text-align: center;
+      line-height: 100vh;
+      color: #fff;
+      font-size: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="body">
+    <section style="background-color: rgb(8, 163, 5);">1</section>
+    <section style="background-color: rgb(255, 0, 51);">2</section>
+    <section style="background-color: rgb(0, 34, 255);">3</section>
+    <section style="background-color: rgb(255, 123, 0);">4</section>
+    <section style="background-color: rgb(57, 60, 60);">5</section>
+  </div>
+</body>
+
+</html>
