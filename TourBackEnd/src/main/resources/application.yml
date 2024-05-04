@@ -1,6 +1,10 @@
 spring:
   application:
     name: TourBackEnd
+    servlet:
+      multipart:
+        maxFileSize: 10MB
+        maxRequestSize: 100MB
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
