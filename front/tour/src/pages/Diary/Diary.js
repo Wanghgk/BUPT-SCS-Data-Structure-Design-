@@ -1,5 +1,6 @@
 import {useRef,useEffect,useState} from "react";
 import {useSelector,useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import {setDiaryScrollY,setDiaryArticles,incRequestTimes} from "../../redux/features/Diary/diaryStateSlice"
 
 import ArticalCard from "../ArticalCard/ArticalCard";
@@ -13,6 +14,7 @@ export default function Diary() {
     let isLoading;
 
     const diary = useRef()
+    const navigate = useNavigate()
 
     const darkness = useSelector(state => state.darkness.value)
     let pastScrollY = useSelector(state => state.diaryState.scrollY)
@@ -106,6 +108,10 @@ export default function Diary() {
         dispatch(setDiaryArticles(newArticles));
     }
 
+    function toArticle() {
+        navigate("../article")
+    }
+
     return (
         <div className={Style["diary"]} ref={diary}>
             <div className={Style["write-artical"]}>
@@ -117,13 +123,12 @@ export default function Diary() {
                 {/*</div>*/}
                 {
                     articles.map((item)=> {
-                        return (<div className={Style["block"]} key={item.id}>
+                        return (<div className={Style["block"]} key={item.id} onClick={toArticle}>
                             <ArticalCard imgUrl={"../" + item.imgUrl}></ArticalCard>
                         </div>)
 
                     })
                 }
-
             </div>
 
 

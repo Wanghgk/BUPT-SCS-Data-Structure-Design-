@@ -1,0 +1,48 @@
+.article {
+    display: flex;
+    height: calc(100vh - var(--header-height));
+}
+
+.slider-container {
+    width: 66%;
+    height: calc(100vh - var(--header-height));
+}
+.slider-container img {
+    display: block;
+    margin: auto;
+    margin-top: 0;
+    /*max-height: 50%;*/
+    max-width: 100%; /* 图片最大宽度为容器宽度 */
+    height: calc(100vh - var(--header-height));
+}
+
+
+.content-container {
+    width: 34%;
+    height: calc(100vh - var(--header-height));
+    padding: 0 20px;
+    overflow-y: auto;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.author {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.paragraph {
+    margin-bottom: 15px;
+    text-indent: 2em;
+}

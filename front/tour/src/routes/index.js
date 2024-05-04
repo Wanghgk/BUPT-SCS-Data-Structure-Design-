@@ -5,6 +5,7 @@ import MainPage from "../pages/MainPage/MainPage";
 import Editor from "../pages/Editor/Editor";
 import Diary from "../pages/Diary/Diary";
 import Tour from "../pages/Tour/Tour";
+import ArticleDetail from "../pages/ArticleDetail/ArticleDetail";
 export default [
     {
         path: '/',
@@ -28,11 +29,16 @@ export default [
             },
             {
                 path: 'diary',
-                element: <Diary/>
+                element: <Diary/>,
+
             },
             {
                 path: 'editor',
                 element: <Editor/>
+            },
+            {
+                path: 'article',
+                element: <ArticleDetail/>
             }
         ]
     }
