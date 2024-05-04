@@ -1,0 +1,70 @@
+.active {
+    background-color: rgba(125,125,125,0.3) !important;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    background: #92A7E8;
+    z-index: 10;
+}
+
+.head-bar {
+
+}
+
+.outline {
+
+}
+
+.outline span{
+    display: block;
+    margin: auto;
+    text-align: center;
+    line-height: var(--header-height);
+    font-size: 30px;
+}
+
+.header .log {
+    position: absolute;
+    right: 30px;
+    background: rgba(207,207,207,0.3);
+    padding: 5px;
+    border: solid 1px #000;
+    text-decoration: none;
+}
+
+.log span {
+    font-size: 20px;
+    text-decoration: none;
+    color: #3f3f3f;
+}
+
+.main {
+    position: absolute;
+    top: var(--header-height);
+    left: var(--left-width);
+    display: block;
+    width: calc(100vw - var(--left-width));
+    height: calc(100vh - var(--header-height));
+    overflow: scroll;
+    z-index: 0;
+}
+
+.main::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge, and Opera *//*隐藏滚动条*/
+}
+
+.leftbar {
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}

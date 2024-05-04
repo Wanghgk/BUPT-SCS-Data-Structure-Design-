@@ -1,0 +1,6 @@
+.block {
+    display: block;
+    position: absolute;
+    background: #000;
+    z-index: 3;
+}

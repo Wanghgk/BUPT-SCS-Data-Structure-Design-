@@ -1,0 +1,61 @@
+.diary {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100vw - var(--left-width));
+    height: calc(100vh - var(--header-height));
+    overflow-y: scroll;
+    z-index: -1;
+    background: var(--diary-bkr);
+    transition: 0.3s;
+    --pen-bkr: #0550e4;
+    --diary-bkr: #eee;
+}
+
+.dark {
+    --pen-bkr: #082256;
+    --diary-bkr: #333;
+}
+
+.write-artical {
+    position: fixed;
+    right: 15px;
+    bottom: 20px;
+    background-color: var(--pen-bkr);
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.write-artical .icon {
+    font-size: 25px;
+    color: #fff;
+    position: relative;
+    top: 10px;
+    left: 13px;
+}
+
+
+
+.waterfall {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    max-width: 800px;
+    column-count: 3;
+    column-gap: 15px;
+    z-index: -1;
+}
+
+.block {
+    margin-bottom: 15px;
+    cursor: pointer;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+}
+
+.block img{
+    width: 100%;
+}

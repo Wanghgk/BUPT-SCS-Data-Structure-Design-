@@ -1,0 +1,190 @@
+* {
+    /*overflow: scroll;*/
+}
+
+.editor {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+}
+
+.operation {
+    position: fixed;
+    right: 7px;
+    top: calc(5px + var(--header-height));
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 400px;
+    border: 2px solid #000;
+    z-index: 10;
+    overflow-y: scroll;
+    -ms-overflow-style: none;/*隐藏滚动条据说是IE*/
+}
+
+.operation::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge, and Opera *//*隐藏滚动条*/
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.size-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.size-buttons button {
+    width: 50%;
+}
+
+.status-button {
+    --backclr: #a0a0a0;
+    display: block;
+    height: 27px;
+    width: 100px;
+    background: var(--backclr);
+    text-align: center;
+    line-height: 27px;
+    border-bottom: 2px solid #000;
+}
+
+.detail {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.detail-input {
+    width: 100px;
+    height: 30px;
+}
+
+.block-operate {
+    width: 100%;
+}
+
+.block-operate .set {
+    display: block;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.block-operate .block-detail .size {
+    text-align: center;
+}
+
+.sides div {
+    text-align: center;
+}
+
+.sides button {
+    display: block;
+    margin: auto;
+}
+
+.file {
+    display: flex;
+    width: 100%;
+    /*overflow: scroll;*/
+}
+
+.scroll {
+    display: block;
+    width: calc(100vw - var(--left-width));
+    height: calc(100vh - var(--header-height));
+    overflow: scroll;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.map {
+    --more-width: 0px;
+    --more-height: 0px;
+    display: block;
+    margin: 0;
+    width: calc(3000px + var(--more-width));
+    height: calc(1000px + var(--more-height));
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #e5e5e5;
+    z-index: -1;
+    /*overflow: scroll;*/
+}
+
+.node {
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.road {
+    --deg: 30;
+    display: block;
+    position: absolute;
+    background-color: red;
+    transform: rotate(calc(var(--deg) * 1deg));
+    z-index: 1;
+}
+
+.road-kind-0 {
+    background-color: #92A7E8;
+}
+
+.road-kind-1 {
+    background-color: #809db4;
+}
+
+.road-kind-2 {
+    background-color: #92e5e8;
+}
+
+.road-kind-3 {
+    background-color: #92e8b0;
+}
+
+.road-kind-4 {
+    background-color: #b9e892;
+}
+
+.road-kind-5 {
+    background-color: #f5f41c;
+}
+
+.road-kind-6 {
+    background-color: #eaa331;
+}
+
+.road-kind-7 {
+    background-color: #ec3a2f;
+}
+
+.road-kind-8 {
+    background-color: #f561c8;
+}
+
+.road-kind-9 {
+    background-color: #b992e8;
+}
+
+
+
+.cross {
+    color: #4ff6ba;
+}
+
+.tourism-unblock {
+    color: #92A7E8;
+}
+
+.tourism {
+    color: #007bff;
+}

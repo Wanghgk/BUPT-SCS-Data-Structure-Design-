@@ -1,0 +1,60 @@
+.wrap {
+    width: calc(100vw - var(--left-width));
+    height: calc(100vh - var(--header-height));
+    overflow: hidden;
+    position: absolute;
+}
+
+.swiper {
+    /*overflow: hidden;*/
+    --img: 1;
+    width: calc((100vw - var(--left-width)) * 5);
+    height: calc(100vh - var(--header-height));
+    left: calc(-1 * var(--img) * (100vw - var(--left-width)));
+    position: absolute;
+    transition: 0.3s;
+}
+
+.swiper-item {
+    width: calc(100vw - var(--left-width));
+    height: calc(100vh - var(--header-height));
+    background-image: url("../../../public/image/1.png");
+    background-size: cover;
+    float: left;
+}
+
+.switch {
+    display: block;
+    height: calc(100vh - var(--header-height));
+    width: 50px;
+    background: rgba(100,100,100,0.1);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.switch:hover {
+    background: rgba(100,100,100,0.5);
+}
+
+.switch-left {
+    position: absolute;
+    left: 0;
+}
+
+.switch-right {
+    position: absolute;
+    right: 0;
+}
+
+.arrow {
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin: auto;
+    margin-top: calc(50vh - 25px - var(--header-height));
+}
+
+.arrow::before {
+    font-size: 50px;
+    color: rgba(146, 201, 203, 0.5);
+}

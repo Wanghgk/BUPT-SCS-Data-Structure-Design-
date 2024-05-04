@@ -1,0 +1,10 @@
+* {
+  --header-height:50px;
+  --left-width: 88px;
+}
+
+body {
+  /*overflow: hidden;*/
+  margin: 0;
+  padding: 0;
+}
