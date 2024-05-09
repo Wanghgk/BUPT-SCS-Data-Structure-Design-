@@ -1,12 +1,25 @@
-
+import {useRef} from "react";
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+
 import Style from "./Menu.module.css"
+import {useEffect} from "react";
 
 export default function () {
 
+    const darkness = useSelector(state => state.darkness.value)
+    const menu = useRef()
+
+    useEffect(() => {
+        if (darkness) {
+            menu.current.classList.add(Style["dark"])
+        } else {
+            menu.current.classList.remove(Style["dark"])
+        }
+    }, [darkness]);
 
     return (
-        <div className={Style["menu"]}>
+        <div className={Style["menu"]} ref={menu}>
             <div className={Style["shell"]}>
                 <NavLink to={"../main"} className={[`${Style["box"]}`,`${Style["img1"]}`].join(' ')}>
                     <div className={Style["text"]}>

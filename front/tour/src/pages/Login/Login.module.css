@@ -44,8 +44,7 @@ body {
     user-select:none;
 }
 
-input[type="text"],
-input[type="password"] {
+.input {
     width: 100%;
     height: 50px;
     margin: 10px 0;
@@ -60,13 +59,12 @@ input[type="password"] {
     outline: none
 }
 
-input[type="text"]:hover,
-input[type="password"]:hover {
+.input:hover {
     background: rgba(255, 255, 255, 0);
     border: 5px solid #ffffff;
 }
 
-input[type="submit"] {
+.submit {
     width: 100%;
     height: 50px;
     padding: 10px;

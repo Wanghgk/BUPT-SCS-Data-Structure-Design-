@@ -41,15 +41,17 @@ import axios from "axios";
                           showStatus={false}
                           showIndicators={false}
                           renderArrowPrev={(onClickHandler, hasPrev, label) =>
-                                hasPrev && (
-                                    <button onClick={onClickHandler} className={[`${Style["carousel-button"]}`,`${Style["prev"]}`].join(" ")}>
-                                        Previous
-                                    </button>
-                                )
-                            }
+                              hasPrev && (
+                                  <button onClick={onClickHandler}
+                                          className={[`${Style["carousel-button"]}`, `${Style["prev"]}`].join(" ")}>
+                                      Previous
+                                  </button>
+                              )
+                          }
                           renderArrowNext={(onClickHandler, hasNext, label) =>
                               hasNext && (
-                                  <button onClick={onClickHandler} className={[`${Style["carousel-button"]}`,`${Style["next"]}`].join(" ")}>
+                                  <button onClick={onClickHandler}
+                                          className={[`${Style["carousel-button"]}`, `${Style["next"]}`].join(" ")}>
                                       Next
                                   </button>
                               )

@@ -16,6 +16,25 @@ body {
     /*z-index: 10;*/
     /*position: relative;*/
     /*left: var(--left-width);*/
+    --blue1:#92d5ff;
+    --blue2:#77bbff;
+    --green1:#a8e6cf;
+    --green2:#86d7b9;
+    --orange1:#ffcd85;
+    --orange2:#ffb66b;
+    --purple1:#b39ddb;
+    --purple2:#9575cd;
+}
+
+.menu.dark {
+    --blue1:#77a8d3;
+    --blue2:#5c89b9;
+    --green1:#85bfae;
+    --green2:#6c9f97;
+    --orange1:#cfad58;
+    --orange2:#b29145;
+    --purple1:#8f78aa;
+    --purple2:#725b8e;
 }
 
 .shell {
@@ -48,19 +67,20 @@ body {
 }
 
 .img1 {
-    background-image: url(../../../public/image/1.png);
+    background-image: url(../../../public/image/01_transparent_big.png),linear-gradient(var(--blue1) ,var(--blue2));
+    /*background-color: linear-gradient(blue,pink);*/
 }
 
 .img2 {
-    background-image: url(../../../public/image/2.png);
+    background-image: url(../../../public/image/02_transparent_big.png),linear-gradient(var(--green1) ,var(--green2));
 }
 
 .img3 {
-    background-image: url(../../../public/image/3.png);
+    background-image: url(../../../public/image/03_transparent_big.png),linear-gradient(var(--orange1) ,var(--orange2));
 }
 
 .img4 {
-    background-image: url(../../../public/image/4.png);
+    background-image: url(../../../public/image/04_transparent_big.png),linear-gradient(var(--purple1) ,var(--purple2));
 }
 
 .text {

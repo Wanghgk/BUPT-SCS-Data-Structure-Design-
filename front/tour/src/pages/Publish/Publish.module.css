@@ -1,7 +1,24 @@
+.publish {
+    display: block;
+    width: calc(100vw - var(--left-width));
+    height: calc(100vh - var(--header-height));
+    overflow-y: scroll;
+    background: url(../../../public/image/12.png);
+}
+
+.position {
+    margin-top: 40px;
+}
+
 .articleEditor {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
+}
+
+.outline {
+    text-align: center;
+    font-family: 方正姚体;
 }
 
 .form-group {
@@ -17,15 +34,19 @@ label {
     margin-bottom: 5px;
 }
 
-input[type='text'],
-textarea {
+.textarea {
     width: 100%;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ccc;
+    background-color: rgba(200,200,200,0.3);
 }
 
-button {
+#content {
+    height: 300px;
+}
+
+.button {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #007bff;
@@ -34,17 +55,18 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.button:hover {
     background-color: #0056b3;
 }
 
 .preview-img {
     display: block;
     width: 256px;
+    min-height: 100px;
     margin: auto;
 }
 
-.upload-button {
+#upload-button {
     display: block;
     margin: auto;
     margin-top: 20px;

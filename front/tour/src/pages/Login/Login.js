@@ -78,9 +78,9 @@ export default function Login (props){
         <div className={Style["login"]}>
             <div className={Style["shell"]}>
                 <h2 className={Style["title"]}>{login ? "Login" : "Register"}</h2>
-                <input ref={usernameRef} type="text" id="username" placeholder={login ? "Username" : "New Username"}/>
-                <input ref={passwordRef} type="password" id="password" placeholder={login ? "Password" : "New Password"}/>
-                <input type="submit" value={login ? "Login" : "Register"} id="loginBtn" onClick={sinInUp}/>
+                <input className={Style["input"]} ref={usernameRef} type="text" autocomplete="off" id="username" placeholder={login ? "Username" : "New Username"}/>
+                <input className={Style["input"]} ref={passwordRef} type="password" autocomplete="off" id="password" placeholder={login ? "Password" : "New Password"}/>
+                <input className={Style["submit"]} type="submit" value={login ? "Login" : "Register"} id="loginBtn" onClick={sinInUp}/>
                 <div className={Style["footer"]}>
                     <div className={Style["Remember"]} style={{opacity: login ? 1 : 0}}>
                         <input type="checkbox" id="rememberMe"/>

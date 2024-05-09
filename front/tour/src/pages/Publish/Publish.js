@@ -90,41 +90,48 @@ export default function Publish() {
 
     return (
         <div className={Style["publish"]} ref={publish}>
-            <div className={Style["form-group"]}>
-                <h2>标题：</h2>
-                <input
-                    type="text"
-                    id="title"
-                    // onChange={handleTitleChange}
-                    ref={title}
-                />
-            </div>
-            <div className={Style["form-group"]}>
-                <h2>内容：</h2>
-                <textarea
-                    id="content"
-                    // onChange={handleContentChange}
-                    ref={content}
-                />
-            </div>
-            <div className={Style["form-group"]}>
-                <h2>上传图片：</h2>
-                <img className={Style["preview-img"]} src={src} style={{display: (src === "none") ? "none" : "block"}}/>
-                <button className={Style["upload-button"]} onClick={chooseFile}>
-                    <i className={["iconfont", "icon-shangchuan", `${Style["icon"]}`].join(' ')}></i>上传图片
+            <div className={Style["position"]}>
+                <h1 className={Style["outline"]}>读万卷书，行万里路</h1>
+                <div className={Style["form-group"]}>
+                    <h2>标题：</h2>
+                    <input className={Style["textarea"]}
+                           type="text"
+                           id="title"
+                           autocomplete="off"
+                        // onChange={handleTitleChange}
+                           ref={title}
+                    />
+                </div>
+                <div className={Style["form-group"]}>
+                    <h2>内容：</h2>
+                    <textarea className={Style["textarea"]}
+                              id={Style["content"]}
+                        // onChange={handleContentChange}
+                              ref={content}
+                    />
+                </div>
+                <div className={Style["form-group"]}>
+                    <h2>上传图片：</h2>
+                    <img className={Style["preview-img"]} src={src}
+                         style={{visibility: (src === "none") ? "hidden" : "visible"}}/>
+                    <button className={Style["button"]} id={Style["upload-button"]} onClick={chooseFile}>
+                        <i className={["iconfont", "icon-shangchuan", `${Style["icon"]}`].join(' ')}></i>上传图片
+                    </button>
+                    <input
+                        style={{display: "none"}}
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        onChange={(e) => {
+                            handleImageChange(e)
+                        }}
+                        ref={upload}
+                    />
+                </div>
+                <button className={Style["button"]} id={Style["submit"]} type="submit" onClick={addArticle}>提交
                 </button>
-                <input
-                    style={{display: "none"}}
-                    type="file"
-                    id="image"
-                    accept="image/*"
-                    onChange={(e) => {
-                        handleImageChange(e)
-                    }}
-                    ref={upload}
-                />
             </div>
-            <button id={Style["submit"]} type="submit" onClick={addArticle}>提交</button>
+
         </div>
     )
 }

@@ -4,7 +4,7 @@
 }
 
 .tour.dark {
-    --header-bkc: #171717;
+    --body-color: #171717;
     --header-text-clr: #fff;
 }
 
@@ -21,7 +21,7 @@
     height: var(--header-height);
     position: fixed;
     top: 0;
-    background: var(--header-bkc);
+    background: var(--body-color);
     z-index: 10;
     transition: all 0.3s ease;
 }

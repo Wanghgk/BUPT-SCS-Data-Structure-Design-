@@ -77,7 +77,7 @@ export default function LeftBar() {
                                 <NavLink to={"diary"}>
                                     <i className={["iconfont", "icon-rijijilu", `${Style["icon"]}`].join(' ')}></i>
                                     <span
-                                        className={[`${Style["text"]}`, `${Style["nac-text"]}`].join(' ')}>博客日记</span>
+                                        className={[`${Style["text"]}`, `${Style["nac-text"]}`].join(' ')}>博客游记</span>
                                 </NavLink>
                             </li>
 
