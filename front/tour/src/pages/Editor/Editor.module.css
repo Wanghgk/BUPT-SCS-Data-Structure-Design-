@@ -103,6 +103,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    pointer-events: none;
 }
 
 .map {
@@ -117,6 +118,7 @@
     left: 0;
     background-color: #e5e5e5;
     z-index: -1;
+    pointer-events: visible;
     /*overflow: scroll;*/
 }
 

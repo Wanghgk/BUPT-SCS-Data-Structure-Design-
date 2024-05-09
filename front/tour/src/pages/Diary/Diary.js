@@ -108,13 +108,13 @@ export default function Diary() {
         dispatch(setDiaryArticles(newArticles));
     }
 
-    function toArticle() {
-        navigate("../article")
+    function toArticle(id) {
+        navigate(`../article/${id}`)
     }
 
     return (
         <div className={Style["diary"]} ref={diary}>
-            <div className={Style["write-artical"]}>
+            <div className={Style["write-artical"]} onClick={()=>{navigate("../publish")}}>
                 <i  className={["iconfont","icon-bi",`${Style["icon"]}`].join(' ')} ></i>
             </div>
             <div className={Style["waterfall"]}>
@@ -123,7 +123,9 @@ export default function Diary() {
                 {/*</div>*/}
                 {
                     articles.map((item)=> {
-                        return (<div className={Style["block"]} key={item.id} onClick={toArticle}>
+                        return (<div className={Style["block"]} key={item.id} onClick={()=> {
+                            toArticle(item.id)
+                        }}>
                             <ArticalCard imgUrl={"../" + item.imgUrl}></ArticalCard>
                         </div>)
 

@@ -6,6 +6,7 @@ import Editor from "../pages/Editor/Editor";
 import Diary from "../pages/Diary/Diary";
 import Tour from "../pages/Tour/Tour";
 import ArticleDetail from "../pages/ArticleDetail/ArticleDetail";
+import Publish from "../pages/Publish/Publish";
 export default [
     {
         path: '/',
@@ -37,8 +38,12 @@ export default [
                 element: <Editor/>
             },
             {
-                path: 'article',
+                path: 'article/:id',
                 element: <ArticleDetail/>
+            },
+            {
+                path: 'publish',
+                element: <Publish/>
             }
         ]
     }

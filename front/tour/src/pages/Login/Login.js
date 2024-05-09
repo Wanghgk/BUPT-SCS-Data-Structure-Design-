@@ -37,11 +37,13 @@ export default function Login (props){
                             // console.log(token)
                             const {data} = res
                             dispatch(setUserToken(data.data))
+                            sessionStorage.setItem("token",data.data)
                             requestUserInfo(data.data)
 
                             console.log(data.data)
-
-                            navigate("/tour/main")
+                            if(data.data !== undefined){
+                                navigate("/tour/main")
+                            }
                         }
                     )
                     .catch(err =>console.log(err))

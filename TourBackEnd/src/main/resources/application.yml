@@ -11,6 +11,12 @@ spring:
     url: jdbc:mysql://localhost:3306/tour
     username: root
     password: admin123
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
 mybatis:
   configuration:
     map-underscore-to-camel-case: true #开启驼峰命名和下划线命名的自动转换

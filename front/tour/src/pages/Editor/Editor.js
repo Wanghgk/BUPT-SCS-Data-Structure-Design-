@@ -293,7 +293,8 @@ export default function Editor() {
             width: 50,
             height: 50,
             hidden: false,
-            kind: 0
+            kind: 0,
+            workplace: []
         }
 
         target.block = newBlock
@@ -452,7 +453,7 @@ export default function Editor() {
             })
             sqlFile += "]','" + value.name + "','{"
             if (value.block.left !== undefined) {
-                sqlFile += "\\\"top\\\": " + value.block.top + ", \\\"kind\\\":" + value.block.kind + ", \\\"left\\\": " + value.block.left + ", \\\"width\\\": " + value.block.width + ", \\\"height\\\": " + value.block.height + ", \\\"hidden\\\": " + value.block.hidden
+                sqlFile += "\\\"top\\\": " + (Number(value.block.top) + Number(base.baseY)) + ", \\\"kind\\\":" + value.block.kind + ", \\\"left\\\": " + (Number(value.block.left) + Number(base.baseX)) + ", \\\"width\\\": " + value.block.width + ", \\\"height\\\": " + value.block.height + ", \\\"hidden\\\": " + value.block.hidden
             }
             sqlFile += "}')" + (index === length - 1 ? ";\n" : ",")
         })
@@ -480,7 +481,7 @@ export default function Editor() {
 
         roads.forEach((value, index, array) => {
             let length = array.length
-            sqlFile += "(" + value.id + ",'" + value.name + "'," + value.topValue + "," + value.leftValue + "," + value.distance + "," + value.thickness + "," + value.angle + "," + value.point1 + "," + value.point2 + "," + value.classifiedWay + "," + value.crowding + ")"
+            sqlFile += "(" + value.id + ",'" + value.name + "'," + (Number(value.topValue) + Number(base.baseY)) + "," + (Number(value.leftValue) + Number(base.baseX)) + "," + value.distance + "," + value.thickness + "," + value.angle + "," + value.point1 + "," + value.point2 + "," + value.classifiedWay + "," + value.crowding + ")"
 
             sqlFile += (index === length - 1) ? ";\n" : ","
         })
@@ -568,7 +569,7 @@ export default function Editor() {
                             }}>删除当前节点的景区
                             </button>
                             {
-                                detail.nowNodeBlock.left !== undefined &&
+                                (detail.nowNodeBlock !== undefined && detail.nowNodeBlock.left !== undefined) &&
                                 <div className={Style["block-detail"]}>
                                     <div className={Style["size"]}>相对X坐标:<input
                                         className={Style["detail-input"]}

@@ -1,6 +1,17 @@
+.article.dark {
+    --pen-bkr: #082256;
+    --diary-bkr: #333;
+    --text-color: #ccc;
+    --title-color: #f0f0f0;
+}
+
 .article {
     display: flex;
+    width: calc(100vw - var(--left-width));
     height: calc(100vh - var(--header-height));
+    background-color: var(--diary-bkr);
+    --text-color: #707070;
+    --title-color: #0f0f0f;
 }
 
 .slider-container {
@@ -19,7 +30,7 @@
 
 .content-container {
     width: 34%;
-    height: calc(100vh - var(--header-height));
+    height: 100%;
     padding: 0 20px;
     overflow-y: auto;
 }
@@ -27,22 +38,24 @@
 .title {
     text-align: center;
     margin-bottom: 20px;
+    font-weight: bolder;
     font-size: 24px;
+    color: var(--title-color);
 }
 
 .author {
     font-size: 14px;
-    color: #666;
+    color: var(--text-color);
     margin-bottom: 10px;
 }
 
 .content {
     font-size: 16px;
     line-height: 1.6;
-    color: #333;
 }
 
 .paragraph {
     margin-bottom: 15px;
     text-indent: 2em;
+    color: var(--text-color);
 }

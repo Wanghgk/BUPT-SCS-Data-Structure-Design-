@@ -24,7 +24,7 @@ export const userSlice = createSlice({
         },
         setUserToken:(state,action) =>{
             state.token = action.payload
-            console.log(state.nickname)
+            // console.log(state.nickname)
         }
 
     }
