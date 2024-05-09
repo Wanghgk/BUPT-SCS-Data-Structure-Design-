@@ -1,3 +1,13 @@
+.tour {
+    --header-bkc: #92A7E8;
+    --header-text-clr: #000;
+}
+
+.tour.dark {
+    --header-bkc: #171717;
+    --header-text-clr: #fff;
+}
+
 .active {
     background-color: rgba(125,125,125,0.3) !important;
 }
@@ -11,8 +21,9 @@
     height: var(--header-height);
     position: fixed;
     top: 0;
-    background: #92A7E8;
+    background: var(--header-bkc);
     z-index: 10;
+    transition: all 0.3s ease;
 }
 
 .head-bar {
@@ -29,6 +40,7 @@
     text-align: center;
     line-height: var(--header-height);
     font-size: 30px;
+    color: var(--header-text-clr);
 }
 
 .header .log {

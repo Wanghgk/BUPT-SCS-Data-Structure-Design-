@@ -3,4 +3,7 @@
     position: absolute;
     background: #000;
     z-index: 3;
+    --deg: 0;
+    transform: rotate(calc(var(--deg) * 1deg));
 }
+

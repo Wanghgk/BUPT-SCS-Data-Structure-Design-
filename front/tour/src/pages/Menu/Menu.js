@@ -8,7 +8,7 @@ export default function () {
     return (
         <div className={Style["menu"]}>
             <div className={Style["shell"]}>
-                <NavLink to={"/"} className={[`${Style["box"]}`,`${Style["img1"]}`].join(' ')}>
+                <NavLink to={"../main"} className={[`${Style["box"]}`,`${Style["img1"]}`].join(' ')}>
                     <div className={Style["text"]}>
                         <header>
                             <span className={Style["title"]}>NO.</span>
@@ -22,7 +22,7 @@ export default function () {
                         </p>
                     </div>
                 </NavLink>
-                <NavLink to={"/"} className={[`${Style["box"]}`,`${Style["img2"]}`].join(' ')}>
+                <NavLink to={"../navigate"} className={[`${Style["box"]}`,`${Style["img2"]}`].join(' ')}>
                     <div className={Style["text"]}>
                         <header>
                             <span className={Style["title"]}>NO.</span>
@@ -36,7 +36,7 @@ export default function () {
                         </p>
                     </div>
                 </NavLink>
-                <NavLink to={"/"} className={[`${Style["box"]}`,`${Style["img3"]}`].join(' ')}>
+                <NavLink to={"../diary"} className={[`${Style["box"]}`,`${Style["img3"]}`].join(' ')}>
                     <div className={Style["text"]}>
                         <header>
                             <span className={Style["title"]}>NO.</span>
@@ -50,7 +50,7 @@ export default function () {
                         </p>
                     </div>
                 </NavLink>
-                <NavLink to={"/"} className={[`${Style["box"]}`,`${Style["img4"]}`].join(' ')}>
+                <NavLink to={"../editor"} className={[`${Style["box"]}`,`${Style["img4"]}`].join(' ')}>
                     <div className={Style["text"]}>
                         <header>
                             <span className={Style["title"]}>NO.</span>

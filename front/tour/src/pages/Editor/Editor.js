@@ -225,6 +225,15 @@ export default function Editor() {
 
             setTargets({point1: NaN, point2: NaN, road: targets.road})
 
+            setDetail({
+                nowNodeBlock: {},
+                nowNodeName: "未选中节点",
+                nowNodeX: "未选中节点",
+                nowNodeY: "未选中节点",
+                nowNodeKind: "未选中节点",
+                nowNodeId: "未选中节点"
+            })
+
         }
     }
 
@@ -292,6 +301,7 @@ export default function Editor() {
             top: 0,
             width: 50,
             height: 50,
+            rotate:0,
             hidden: false,
             kind: 0,
             workplace: []
@@ -587,6 +597,14 @@ export default function Editor() {
                                         key={detail.nowNodeId + "" + detail.nowNodeBlock.top + "blockh"}
                                         defaultValue={detail.nowNodeBlock.top}/>
                                     </div>
+                                    <div className={Style["size"]}>旋转角度:<input
+                                        className={Style["detail-input"]}
+                                        onBlur={(e) => {
+                                            setBlockFeature("rotate", Number(e.target.value))
+                                        }}
+                                        key={detail.nowNodeId + "" + detail.nowNodeBlock.rotate + "blockr"}
+                                        defaultValue={detail.nowNodeBlock.rotate}/>
+                                    </div>
                                     <div className={Style["size"]}>宽度:<input
                                         className={Style["detail-input"]}
                                         onBlur={(e) => {
@@ -697,6 +715,7 @@ export default function Editor() {
                                                    width={e.block.width}
                                                    height={e.block.height}
                                                    nodeId={e.id}
+                                                   rotate={e.block.rotate}
                                                    setBlockPosition={setBlockPosition}
                                                    focusNode={focusNode}
                                             />

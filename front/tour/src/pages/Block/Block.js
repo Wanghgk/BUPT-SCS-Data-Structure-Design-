@@ -2,7 +2,7 @@ import {useState,useRef,useEffect} from "react";
 import Style from "./Block.module.css"
 
 export default function Block(props) {
-    const {pointLeft,pointTop,blockLeft,blockTop,setBlockPosition,width,height,focusNode,nodeId} = props
+    const {pointLeft,pointTop,blockLeft,blockTop,setBlockPosition,width,height,focusNode,nodeId,rotate} = props
 
     const [position,setPosition] = useState({left:pointLeft+blockLeft,top:pointTop+blockTop})
 
@@ -49,7 +49,7 @@ export default function Block(props) {
              onMouseDown={(e)=>{grabBegin(e)}}
              onMouseMove={(e)=>{grabWindow(e)}}
              onMouseUp={(e) => {grabOver(e)}} onMouseLeave={() => {grabLeave()}}
-             style={{left: position.left, top: position.top,width:width,height:height}}
+             style={{left: position.left, top: position.top,width:width,height:height,"--deg":rotate}}
         >
 
         </div>
