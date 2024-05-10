@@ -24,19 +24,19 @@ export default function MainPage() {
 
     function changeStick(newContentId) {
 
-        if(newContentId !== content){
-            stickContainer.current.classList.add(Style["close"])
-            requestNews(newContentId)
-        }
+        // if(newContentId !== content){
+        //     stickContainer.current.classList.add(Style["close"])
+        //     requestNews(newContentId)
+        // }
         // console.log(newContentId)
     }
 
     function flushStick() {
-        stickContainer.current.classList.add(Style["close"])
+        stickContainer.current.classList.toggle(Style["close"])
         // requestNews()
-        setTimeout(()=>{
-            stickContainer.current.classList.remove(Style["close"])
-        },500)
+        // setTimeout(()=>{
+        //     stickContainer.current.classList.remove(Style["close"])
+        // },500)
     }
 
     async function requestNews(newContentId) {
@@ -75,7 +75,7 @@ export default function MainPage() {
                 </div>
                 <div className={Style["slogan"]}>
                     <div className={Style["slogan-container"]}>
-                        <span>千里之行，始于足下。</span>
+                        <span>千里之行，始于足下</span>
                     </div>
                 </div>
             </div>

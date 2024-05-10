@@ -8,31 +8,36 @@ import tempArticles from "./tempArticles";
 
 import Style from "./Diary.module.css"
 import "../../iconfont.css"
+import axios from "axios";
 
 export default function Diary() {
+
+    const tempTotalArticles = 38
 
     let isLoading;
 
     const diary = useRef()
     const navigate = useNavigate()
 
+    const token = sessionStorage.getItem("token")
     const darkness = useSelector(state => state.darkness.value)
     let pastScrollY = useSelector(state => state.diaryState.scrollY)
     let articles = useSelector(state => state.diaryState.articles)
     let requestTimes = useSelector(state => state.diaryState.requestTimes)
     const dispatch = useDispatch()
-    const localTimesRef = useRef()
-    const localArticlesRef = useRef()
+    const localTimesRef = useRef(0)
+    const localArticlesRef = useRef([])
 
 
     // 在组件挂载和卸载时添加和移除滚动事件监听器
     useEffect(() => {
         //挂载时判断是否为第一次打开，若为第一次则请求数据
         if(requestTimes === 0){
-            dispatch(incRequestTimes())
-            localTimesRef.current = 1
-            dispatch(setDiaryArticles(tempArticles))
-            localArticlesRef.current = tempArticles
+            newArticles()
+            // dispatch(incRequestTimes())
+            // localTimesRef.current = 1
+            // dispatch(setDiaryArticles(tempArticles))
+            // localArticlesRef.current = tempArticles
         }else {
             localTimesRef.current = requestTimes
             localArticlesRef.current = articles
@@ -87,25 +92,33 @@ export default function Diary() {
 
         // console.log(localTimesRef.current,localArticlesRef.current)
         // 模拟请求
+        axios.get("http://127.0.0.1:8080/article/recommend?size=30&receiveCategories=true,true,true,true,true",
+            {headers:{"authorization" : token}})
+            .then((res)=>{
+                // console.log(res)
+                let resArray = res.data.data
+                let newArticles = [];
+                // console.log(newArticles,newArticles.length)
+                for (let i = 0; i < 3; ++i) {
+                    let sliced = localArticlesRef.current.slice(i * localTimesRef.current * 10, (i + 1) * localTimesRef.current * 10);
+                    // console.log("before concat:",newArticles)
+                    newArticles = newArticles.concat(sliced);
+                    // console.log("slice:",sliced,"concat:",newArticles)
+                    for (let j = i * 10; j < (i + 1) * 10; ++j) {
+                        newArticles.push({ id: resArray[j].id + localTimesRef.current * tempTotalArticles, title:resArray[j].title, imgUrl: resArray[j].coverImg });
+                    }
+                }
 
-        let newArticles = [];
-        // console.log(newArticles,newArticles.length)
-        for (let i = 0; i < 3; ++i) {
-            let sliced = localArticlesRef.current.slice(i * localTimesRef.current * 10, (i + 1) * localTimesRef.current * 10);
-            // console.log("before concat:",newArticles)
-            newArticles = newArticles.concat(sliced);
-            // console.log("slice:",sliced,"concat:",newArticles)
-            for (let j = i * 10; j < (i + 1) * 10; ++j) {
-                newArticles.push({ id: tempArticles[j].id + localTimesRef.current * 30, imgUrl: tempArticles[j].imgUrl });
-            }
-        }
+                localTimesRef.current += 1
+                dispatch(incRequestTimes())
+                // 更新 articles
+                // console.log("newArticles:",newArticles)
+                localArticlesRef.current = newArticles
+                dispatch(setDiaryArticles(newArticles));
+            })
+            .catch((err)=>{console.log(err)})
 
-        localTimesRef.current += 1
-        dispatch(incRequestTimes())
-        // 更新 articles
-        // console.log("newArticles:",newArticles)
-        localArticlesRef.current = newArticles
-        dispatch(setDiaryArticles(newArticles));
+
     }
 
     function toArticle(id) {
@@ -126,7 +139,7 @@ export default function Diary() {
                         return (<div className={Style["block"]} key={item.id} onClick={()=> {
                             toArticle(item.id)
                         }}>
-                            <ArticalCard imgUrl={"../" + item.imgUrl}></ArticalCard>
+                            <ArticalCard title={item.title} imgUrl={item.imgUrl}></ArticalCard>
                         </div>)
 
                     })

@@ -76,3 +76,31 @@ label {
     display: block;
     margin: auto;
 }
+
+.pop-up-container {
+    position: absolute;
+    top: 100px;
+    left: calc(50vw - var(--left-width)/2 - 100px);
+    opacity: 0;
+}
+
+.pop-up-active {
+    animation: pop-up-behavior 0.625s ease;
+}
+
+@keyframes pop-up-behavior {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    80% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 0;
+    }
+}

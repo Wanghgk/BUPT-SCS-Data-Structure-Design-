@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ArticleMapper {
@@ -19,4 +20,6 @@ public interface ArticleMapper {
 
     @Select("select * from article where id=#{id}")
     Article findById(Integer id);
+
+    List<Article> recommend(Map<String, Object> params);
 }

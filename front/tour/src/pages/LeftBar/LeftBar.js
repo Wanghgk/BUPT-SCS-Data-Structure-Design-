@@ -92,10 +92,10 @@ export default function LeftBar() {
                     </div>
                     <div className={Style["bottom-content"]}>
                         <li className={Style[""]}>
-                            <a href="#">
+                            <NavLink to={"../"}>
                                 <i className={["iconfont", "icon-icon_logout", `${Style["icon"]}`].join(' ')}></i>
                                 <span className={[`${Style["text"]}`, `${Style["nac-text"]}`].join(' ')}>注销</span>
-                            </a>
+                            </NavLink>
                         </li>
                         <li className={Style["mode"]} onClick={toggleDark}>
                             <div className={Style["sun-moon"]}>

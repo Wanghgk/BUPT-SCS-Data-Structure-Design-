@@ -7,10 +7,13 @@ import com.wanghgk.tourbackend.pojo.Article;
 import com.wanghgk.tourbackend.pojo.PageBean;
 import com.wanghgk.tourbackend.service.ArticleService;
 import com.wanghgk.tourbackend.utils.ThreadLocalUtil;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +61,23 @@ public class ArticleServiceImpl implements ArticleService {
 
         Article article = articleMapper.findById(id);
         return article;
+    }
+
+    @Override
+    public List<Article> recommend(Integer size, Boolean[] receiveCategories) {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("size", size);
+        List<Integer> categories = new ArrayList<>();
+        for (int i = 0; i < receiveCategories.length; ++i) {
+            if (receiveCategories[i]) {
+                categories.add(i + 1);
+            }
+        }
+        params.put("categories", categories);
+
+        List<Article> articles = articleMapper.recommend(params);
+        return articles;
     }
 
 }

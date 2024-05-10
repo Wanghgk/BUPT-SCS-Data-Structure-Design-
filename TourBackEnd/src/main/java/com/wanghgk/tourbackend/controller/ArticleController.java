@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
@@ -36,5 +38,12 @@ public class ArticleController {
         Article article = articleService.findById(id);
 
         return Result.success(article);
+    }
+
+    @GetMapping("/recommend")
+    public Result<List<Article>> recommend(Integer size, Boolean[] receiveCategories){
+        List<Article> articles = articleService.recommend(size, receiveCategories);
+
+        return Result.success(articles);
     }
 }

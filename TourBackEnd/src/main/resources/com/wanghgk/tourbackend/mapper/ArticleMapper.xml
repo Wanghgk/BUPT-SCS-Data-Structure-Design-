@@ -14,4 +14,15 @@
         and create_user=#{userId}
         </where>
     </select>
+    
+    <select id="recommend" parameterType="map" resultType="com.wanghgk.tourbackend.pojo.Article">
+        SELECT id, title, cover_img FROM article
+        <where>
+            <foreach collection="categories" item="category" separator=" OR ">
+                category_id = #{category}
+            </foreach>
+        </where>
+        ORDER BY RAND()
+        LIMIT #{size}
+    </select>
 </mapper>

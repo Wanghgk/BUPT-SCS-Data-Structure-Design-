@@ -7,6 +7,7 @@ import Style from "./ArticleDetail.module.css"
 import axios from "axios";
 
  export default function ArticleDetail() {
+     const tempTotalArticles = 38
      const params = useParams();
      const darkness = useSelector(state => state.darkness.value)
      const token = sessionStorage.getItem("token")
@@ -14,7 +15,7 @@ import axios from "axios";
      let [detail,setdetail] = useState({title:"",author:"",content:"",images:[]})
 
     useEffect(()=>{
-        axios.get("http://127.0.0.1:8080/article/detail?id="+((Number(params.id)-1)%30+1),{headers:{"authorization" : token}})
+        axios.get("http://127.0.0.1:8080/article/detail?id="+((Number(params.id)-1)%tempTotalArticles+1),{headers:{"authorization" : token}})
             .then(res=>{
                 let {data} = res.data
                 // console.log(res,typeof data.content)

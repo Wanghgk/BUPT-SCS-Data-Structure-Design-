@@ -4,6 +4,8 @@ package com.wanghgk.tourbackend.service;
 import com.wanghgk.tourbackend.pojo.Article;
 import com.wanghgk.tourbackend.pojo.PageBean;
 
+import java.util.List;
+
 public interface ArticleService {
 
 //新增文章
@@ -12,4 +14,6 @@ public interface ArticleService {
     PageBean<Article> list(Integer pageNum, Integer pageSize, Integer categoryId);
 //获取文章详情
     Article findById(Integer id);
+
+    List<Article> recommend(Integer size, Boolean[] receiveCategories);
 }
