@@ -101,7 +101,7 @@ export default function Swiper() {
         <div className={Style["wrap"]}>
             <div className={Style["swiper"]} style={{"--img": img}} ref={swiper}>
                 <div className={Style["swiper-item"]} style={{"backgroundImage": "url(../image/6.png)"}}></div>
-                <div className={Style["swiper-item"]} style={{"backgroundImage": "url(../image/7.png)"}}></div>
+                <div className={Style["swiper-item"]} style={{"backgroundImage": "url(../image/13-1.png)"}}></div>
                 <div className={Style["swiper-item"]} style={{"backgroundImage": "url(../image/8.png)"}}></div>
                 <div className={Style["swiper-item"]} style={{"backgroundImage": "url(../image/9.png)"}}></div>
                 <div className={Style["swiper-item"]} style={{"backgroundImage": "url(../image/6.png)"}}></div>

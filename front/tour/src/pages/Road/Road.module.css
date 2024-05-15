@@ -1,0 +1,13 @@
+.road {
+    display: block;
+    position: absolute;
+    /*padding: 0 12px;*/
+    --deg: 30;
+    transform: rotate(calc(var(--deg) * 1deg));
+    z-index: 1;
+    --road-bkc: #ffffff;
+    border: 3px solid #dadada;
+    border-left: 0;
+    border-right: 0;
+    background-color: var(--road-bkc);
+}

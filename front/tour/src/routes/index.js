@@ -7,6 +7,7 @@ import Diary from "../pages/Diary/Diary";
 import Tour from "../pages/Tour/Tour";
 import ArticleDetail from "../pages/ArticleDetail/ArticleDetail";
 import Publish from "../pages/Publish/Publish";
+import Map from "../pages/Map/Map";
 export default [
     {
         path: '/',
@@ -26,7 +27,7 @@ export default [
             },
             {
                 path: 'navigate',
-                element: <MainPage/>
+                element: <Map/>
             },
             {
                 path: 'diary',

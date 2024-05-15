@@ -1,0 +1,22 @@
+.map {
+    display: block;
+    width: calc(100vw - var(--left-width));
+    height: calc(100vh - var(--header-height));
+    overflow: scroll;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #e8e6e6;
+}
+
+.node {
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    border: 3px solid #f9f9f9;
+    border-radius: 50%;
+    background: #fff;
+    z-index: 2;
+}

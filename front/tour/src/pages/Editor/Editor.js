@@ -463,7 +463,7 @@ export default function Editor() {
             })
             sqlFile += "]','" + value.name + "','{"
             if (value.block.left !== undefined) {
-                sqlFile += "\\\"top\\\": " + (Number(value.block.top) + Number(base.baseY)) + ", \\\"kind\\\":" + value.block.kind + ", \\\"left\\\": " + (Number(value.block.left) + Number(base.baseX)) + ", \\\"width\\\": " + value.block.width + ", \\\"height\\\": " + value.block.height + ", \\\"hidden\\\": " + value.block.hidden
+                sqlFile += "\\\"top\\\": " + (Number(value.y) + Number(value.block.top) + Number(base.baseY)) + ", \\\"kind\\\":" + value.block.kind + ", \\\"left\\\": " + (Number(value.x) + Number(value.block.left) + Number(base.baseX)) + ", \\\"width\\\": " + value.block.width + ", \\\"height\\\": " + value.block.height + ", \\\"hidden\\\": " + value.block.hidden
             }
             sqlFile += "}')" + (index === length - 1 ? ";\n" : ",")
         })
@@ -716,6 +716,7 @@ export default function Editor() {
                                                    height={e.block.height}
                                                    nodeId={e.id}
                                                    rotate={e.block.rotate}
+                                                   enableGrab={true}
                                                    setBlockPosition={setBlockPosition}
                                                    focusNode={focusNode}
                                             />

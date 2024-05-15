@@ -11,11 +11,11 @@ body {
     padding: 0;
     margin: 0;
     width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - var(--header-height));
-    background-image: url(../../../public/image/5.gif);
+    background-image: url(../../../public/image/5-1.gif);
     background-size: cover;
     overflow: hidden;
     transition: .3s;

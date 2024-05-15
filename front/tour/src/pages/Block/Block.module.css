@@ -1,9 +1,10 @@
 .block {
     display: block;
     position: absolute;
-    background: #000;
     z-index: 3;
     --deg: 0;
     transform: rotate(calc(var(--deg) * 1deg));
+    background-color: #FFDAB9; /* 设置矩形的背景颜色 */
+    border-radius: 10px; /* 设置矩形的圆角半径 */
 }
 

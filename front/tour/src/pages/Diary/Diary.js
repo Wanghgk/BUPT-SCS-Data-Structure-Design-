@@ -105,7 +105,7 @@ export default function Diary() {
                     newArticles = newArticles.concat(sliced);
                     // console.log("slice:",sliced,"concat:",newArticles)
                     for (let j = i * 10; j < (i + 1) * 10; ++j) {
-                        newArticles.push({ id: resArray[j].id + localTimesRef.current * tempTotalArticles, title:resArray[j].title, imgUrl: resArray[j].coverImg });
+                        newArticles.push({ id: resArray[j].id, title:resArray[j].title, imgUrl: resArray[j].coverImg, key:resArray[j].id + "-" + localTimesRef.current});
                     }
                 }
 
@@ -136,7 +136,7 @@ export default function Diary() {
                 {/*</div>*/}
                 {
                     articles.map((item)=> {
-                        return (<div className={Style["block"]} key={item.id} onClick={()=> {
+                        return (<div className={Style["block"]} key={item.key} onClick={()=> {
                             toArticle(item.id)
                         }}>
                             <ArticalCard title={item.title} imgUrl={item.imgUrl}></ArticalCard>

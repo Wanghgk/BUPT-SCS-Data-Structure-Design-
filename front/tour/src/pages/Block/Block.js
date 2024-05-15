@@ -2,7 +2,7 @@ import {useState,useRef,useEffect} from "react";
 import Style from "./Block.module.css"
 
 export default function Block(props) {
-    const {pointLeft,pointTop,blockLeft,blockTop,setBlockPosition,width,height,focusNode,nodeId,rotate} = props
+    const {pointLeft,pointTop,blockLeft,blockTop,setBlockPosition,width,height,focusNode,nodeId,rotate,enableGrab} = props
 
     const [position,setPosition] = useState({left:pointLeft+blockLeft,top:pointTop+blockTop})
 
@@ -11,6 +11,11 @@ export default function Block(props) {
     useEffect(()=>{
         setPosition({left:pointLeft+blockLeft,top:pointTop+blockTop})
     },[blockLeft, blockTop, pointLeft, pointTop])
+
+    // useEffect(()=>{
+    //     if (isNaN(position.left))
+    //         console.log(nodeId)
+    // })
     
     function grabBegin(e){
 
@@ -46,9 +51,18 @@ export default function Block(props) {
 
     return (
         <div className={Style["block"]}
-             onMouseDown={(e)=>{grabBegin(e)}}
-             onMouseMove={(e)=>{grabWindow(e)}}
-             onMouseUp={(e) => {grabOver(e)}} onMouseLeave={() => {grabLeave()}}
+             onMouseDown={(e)=>{if(enableGrab) {
+                 grabBegin(e)
+             }}}
+             onMouseMove={(e)=>{if(enableGrab) {
+                 grabWindow(e)
+             }}}
+             onMouseUp={(e) => {if(enableGrab) {
+                 grabOver(e)
+             }}}
+             onMouseLeave={() => {if(enableGrab) {
+                 grabLeave()
+             }}}
              style={{left: position.left, top: position.top,width:width,height:height,"--deg":rotate}}
         >
 
