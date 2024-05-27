@@ -38,6 +38,7 @@ export default function Login (props){
                             const {data} = res
                             dispatch(setUserToken(data.data))
                             sessionStorage.setItem("token",data.data)
+                            sessionStorage.setItem("permit",JSON.stringify([true,true,true,true,true]))
                             requestUserInfo(data.data)
 
                             console.log(data.data)

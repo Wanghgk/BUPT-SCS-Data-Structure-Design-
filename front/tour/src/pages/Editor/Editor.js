@@ -291,6 +291,14 @@ export default function Editor() {
         }
     }
 
+    function setRoadsZero() {
+        let newRoads = roads
+        newRoads.forEach((road)=>{
+            road.classifiedWay = 0
+        })
+        setRoads([...newRoads])
+    }
+
     function addBlock() {
         let newNode = nodes
         const targetIndex = nodes.findIndex(e => e.id === detail.nowNodeId)
@@ -456,14 +464,14 @@ export default function Editor() {
 
         nodes.forEach((value, index, array) => {
             let length = array.length
-            sqlFile += "(" + value.id + "," + value.x + "," + value.y + "," + value.kind + "," + "'["
+            sqlFile += "(" + value.id + "," + (Number(value.x)+Number(base.baseX)) + "," + (Number(value.y)+Number(base.baseY)) + "," + value.kind + "," + "'["
             let roadsLength = value.roads.length
             value.roads.forEach((roadValue, roadIndex, roadArray) => {
                 sqlFile += Number(roadValue) + (roadIndex === roadsLength - 1 ? "" : ",")
             })
             sqlFile += "]','" + value.name + "','{"
-            if (value.block.left !== undefined) {
-                sqlFile += "\\\"top\\\": " + (Number(value.y) + Number(value.block.top) + Number(base.baseY)) + ", \\\"kind\\\":" + value.block.kind + ", \\\"left\\\": " + (Number(value.x) + Number(value.block.left) + Number(base.baseX)) + ", \\\"width\\\": " + value.block.width + ", \\\"height\\\": " + value.block.height + ", \\\"hidden\\\": " + value.block.hidden
+            if (value.kind&&value.block.left !== undefined) {
+                sqlFile += "\\\"top\\\": " + (Number(value.y) + Number(value.block.top) + Number(base.baseY)) + ", \\\"kind\\\":" + value.block.kind + ", \\\"left\\\": " + (Number(value.x) + Number(value.block.left) + Number(base.baseX)) + ", \\\"width\\\": " + value.block.width + ", \\\"height\\\": " + value.block.height + ", \\\"hidden\\\": " + value.block.hidden + ", \\\"rotate\\\": " + value.block.rotate
             }
             sqlFile += "}')" + (index === length - 1 ? ";\n" : ",")
         })
@@ -647,7 +655,7 @@ export default function Editor() {
                         <div>道路长度:{roadDetail.nowRoadDistance}</div>
                         <div>道路等级:<input
                             className={Style["detail-input"]}
-                            onBlur={(e) => {
+                            onChange={(e) => {
                                 setRoadFeature("classifiedWay", Number(e.target.value))
                             }}
                             key={roadDetail.nowRoadId + "" + roadDetail.nowRoadKind + "roadkind"}
@@ -664,6 +672,7 @@ export default function Editor() {
                         <button onClick={() => {
                             deleteRoad([targets.road])
                         }}>{isNaN(targets.road) ? "未选择道路" : "删除该道路"}</button>
+                        <button onClick={()=>{setRoadsZero()}}>道路等级全为0</button>
                     </div>
 
                     <div className={Style["file"]}>
@@ -696,6 +705,8 @@ export default function Editor() {
                                     </div>
                                 )
                             } else {
+                                if(e.kind && e.block.left === undefined)
+                                    console.log(e.id)
                                 return (
                                     <div key={e.id}>
                                         <div className={Style["node"]}

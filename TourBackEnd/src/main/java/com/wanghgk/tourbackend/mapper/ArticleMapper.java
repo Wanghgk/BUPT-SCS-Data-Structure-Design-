@@ -11,6 +11,9 @@ import java.util.Map;
 @Mapper
 public interface ArticleMapper {
 
+    @Select("select * from article where create_user=#{userId}")
+    List<Article> myAllList(Integer userId);
+
     //新增
     @Insert("insert into article(title,content,cover_img,category_id,create_user,create_time,update_time) values(#{title},#{content},#{coverImg},#{categoryId},#{createUser},#{createTime},#{updateTime})")
     void add(Article article);
@@ -22,4 +25,6 @@ public interface ArticleMapper {
     Article findById(Integer id);
 
     List<Article> recommend(Map<String, Object> params);
+
+    List<Article> searchByTitle(String title);
 }

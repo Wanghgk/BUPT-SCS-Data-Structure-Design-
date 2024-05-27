@@ -18,11 +18,24 @@
     <select id="recommend" parameterType="map" resultType="com.wanghgk.tourbackend.pojo.Article">
         SELECT id, title, cover_img FROM article
         <where>
-            <foreach collection="categories" item="category" separator=" OR ">
-                category_id = #{category}
-            </foreach>
+            <if test="categories != null and categories.size() > 0">
+                <foreach collection="categories" item="category" separator=" OR ">
+                    category_id = #{category}
+                </foreach>
+            </if>
+            <if test="excludedIds != null and excludedIds.size() > 0">
+                AND id NOT IN
+                <foreach collection="excludedIds" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
         </where>
         ORDER BY RAND()
         LIMIT #{size}
+    </select>
+    <select id="searchByTitle" parameterType="string" resultType="com.wanghgk.tourbackend.pojo.Article">
+        SELECT id, title, cover_img
+        FROM article
+        WHERE title LIKE CONCAT('%', #{title}, '%')
     </select>
 </mapper>

@@ -4,6 +4,7 @@ import Menu from "../pages/Menu/Menu";
 import MainPage from "../pages/MainPage/MainPage";
 import Editor from "../pages/Editor/Editor";
 import Diary from "../pages/Diary/Diary";
+import DiaryResult from "../pages/DiaryResult/DiaryResult"
 import Tour from "../pages/Tour/Tour";
 import ArticleDetail from "../pages/ArticleDetail/ArticleDetail";
 import Publish from "../pages/Publish/Publish";
@@ -32,7 +33,10 @@ export default [
             {
                 path: 'diary',
                 element: <Diary/>,
-
+            },
+            {
+                path: 'result/:title',
+                element: <DiaryResult/>
             },
             {
                 path: 'editor',

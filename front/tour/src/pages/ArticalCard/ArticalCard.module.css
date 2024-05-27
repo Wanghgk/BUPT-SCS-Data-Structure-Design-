@@ -1,0 +1,45 @@
+.artical-card {
+    display: block;
+    width: 250px;
+    padding: 5px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    background-color: rgba(216, 224, 243, 0.5);
+
+}
+
+.artical-card img {
+    display: block;
+    margin: auto;
+    border-radius: 5px;
+    width: 90%;
+    max-height: 800px;
+    min-height: 400px;
+}
+
+.artical-card span {
+    display: block;
+    width: 200px;
+    margin: auto;
+    margin-top: 5px;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;/*设置多行函数*/
+}
+
+@media (max-width: 830px) {
+    .artical-card {
+        width: 100px;
+    }
+
+    .artical-card img {
+        max-height: 400px;
+        min-height: 300px;
+    }
+
+    .artical-card span {
+        width: 80px;
+    }
+}

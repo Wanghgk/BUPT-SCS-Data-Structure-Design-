@@ -17,6 +17,8 @@ export default function Diary() {
     let isLoading;
 
     const diary = useRef()
+    const search = useRef()
+    const searchInput = useRef()
     const navigate = useNavigate()
 
     const token = sessionStorage.getItem("token")
@@ -27,10 +29,22 @@ export default function Diary() {
     const dispatch = useDispatch()
     const localTimesRef = useRef(0)
     const localArticlesRef = useRef([])
+    const permitRef = useRef([true,true,true,true,true])
+    let getNewArticleUrl = "http://127.0.0.1:8080/article/recommend?size=30&receiveCategories="
 
 
     // 在组件挂载和卸载时添加和移除滚动事件监听器
     useEffect(() => {
+        //获取允许推荐的内容
+        let permit = sessionStorage.getItem("permit")
+        permitRef.current = JSON.parse(permit)
+        // console.log(permit,permitRef.current)
+        getNewArticleUrl += permitRef.current[0]?"true,":"false,"
+        getNewArticleUrl += permitRef.current[1]?"true,":"false,"
+        getNewArticleUrl += permitRef.current[2]?"true,":"false,"
+        getNewArticleUrl += permitRef.current[3]?"true,":"false,"
+        getNewArticleUrl += permitRef.current[4]?"true":"false"
+
         //挂载时判断是否为第一次打开，若为第一次则请求数据
         if(requestTimes === 0){
             newArticles()
@@ -48,6 +62,7 @@ export default function Diary() {
         diary.current.addEventListener('scroll', handleScroll);
 
         const diaryCurrent = diary.current
+
         return () => {
             diaryCurrent.removeEventListener('scroll', handleScroll);
         };
@@ -85,14 +100,28 @@ export default function Diary() {
             },1000)
 
         }
+
+        //判断是否缩放搜索框
+        if(scrollTop > 100) {
+            search.current.classList.add(Style["small"])
+            search.current.classList.remove(Style["big"])
+        }else {
+            search.current.classList.remove(Style["small"])
+            search.current.classList.add(Style["big"])
+        }
         // console.log(typeof Number(window.scrollY))
     }
 
     function newArticles(){
+        // console.log("1")
 
         // console.log(localTimesRef.current,localArticlesRef.current)
         // 模拟请求
-        axios.get("http://127.0.0.1:8080/article/recommend?size=30&receiveCategories=true,true,true,true,true",
+
+        // true,true,true,true,true
+
+        // console.log(getNewArticleUrl)
+        axios.get(getNewArticleUrl,
             {headers:{"authorization" : token}})
             .then((res)=>{
                 // console.log(res)
@@ -104,7 +133,7 @@ export default function Diary() {
                     // console.log("before concat:",newArticles)
                     newArticles = newArticles.concat(sliced);
                     // console.log("slice:",sliced,"concat:",newArticles)
-                    for (let j = i * 10; j < (i + 1) * 10; ++j) {
+                    for (let j = i * 10; j < (i + 1) * 10 && j<resArray.length; ++j) {
                         newArticles.push({ id: resArray[j].id, title:resArray[j].title, imgUrl: resArray[j].coverImg, key:resArray[j].id + "-" + localTimesRef.current});
                     }
                 }
@@ -125,21 +154,39 @@ export default function Diary() {
         navigate(`../article/${id}`)
     }
 
+    function articleSearch() {
+        if(search.current.classList.contains(Style["small"])) {
+            //已经缩小，执行放大
+            search.current.classList.remove(Style["small"])
+            search.current.classList.add(Style["big"])
+        }else {
+            //已经放大，可以搜索
+            navigate(`../result/${searchInput.current.value}`)
+            // console.log(searchInput.current.value)
+        }
+    }
+
     return (
         <div className={Style["diary"]} ref={diary}>
             <div className={Style["write-artical"]} onClick={()=>{navigate("../publish")}}>
                 <i  className={["iconfont","icon-bi",`${Style["icon"]}`].join(' ')} ></i>
             </div>
+            <div className={Style["search-scale"]}>
+                <div className={[`${Style["search"]}`, `${Style["big"]}`].join(' ')} ref={search}>
+                    <input className={Style["search-input"]} placeholder={"SEARCH"} ref={searchInput}/>
+                    <div className={Style["search-button"]} onClick={articleSearch}>
+                        <i className={["iconfont", "icon-sousuo1", `${Style["icon"]}`].join(' ')}></i>
+                    </div>
+                </div>
+            </div>
+
             <div className={Style["waterfall"]}>
-                {/*<div className={Style["block"]}>*/}
-                {/*    <ArticalCard imgUrl={"./image/waterfall/1.jpg"}></ArticalCard>*/}
-                {/*</div>*/}
                 {
-                    articles.map((item)=> {
+                    articles.map((item) => {
                         return (<div className={Style["block"]} key={item.key} onClick={()=> {
                             toArticle(item.id)
                         }}>
-                            <ArticalCard title={item.title} imgUrl={item.imgUrl}></ArticalCard>
+                            <ArticalCard title={item.title} imgUrl={item.imgUrl} small={false}></ArticalCard>
                         </div>)
 
                     })

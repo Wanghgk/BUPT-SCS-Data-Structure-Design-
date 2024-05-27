@@ -65,6 +65,24 @@ body {
     }
 }
 
+.page-2-background {
+    animation: page-2-background 2s;
+    background: url("../../../public/image/7-1.png");
+    background-size: cover;
+}
+
+@keyframes page-2-background {
+    0% {
+        background: var(--page-bkc-png);
+        background-size: cover;
+    }
+
+    100%{
+        background: url("../../../public/image/7-1.png");
+        background-size: cover;
+    }
+}
+
 .swiper {
     display: flex;
     width: calc(100vw - var(--left-width));
@@ -155,6 +173,22 @@ body {
 }
 
 .close .stick-right .short {
+    margin-right: -300px;
+}
+
+.stick-left .long.stick-close {
+    margin-left: -465px;
+}
+
+.stick-left .short.stick-close {
+    margin-left: -300px;
+}
+
+.stick-right .long.stick-close {
+    margin-right: -465px;
+}
+
+.stick-right .short.stick-close {
     margin-right: -300px;
 }
 

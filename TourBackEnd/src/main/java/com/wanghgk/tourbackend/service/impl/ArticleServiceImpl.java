@@ -7,15 +7,13 @@ import com.wanghgk.tourbackend.pojo.Article;
 import com.wanghgk.tourbackend.pojo.PageBean;
 import com.wanghgk.tourbackend.service.ArticleService;
 import com.wanghgk.tourbackend.utils.ThreadLocalUtil;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 @Service
@@ -23,6 +21,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    private final ConcurrentHashMap<Long, Queue<Long>> userRecentArticleMap = new ConcurrentHashMap<>();
+    private final int QUEUE_MAX_SIZE = 10;
     @Override
     public void add(Article article) {
         //补充属性值
@@ -65,8 +66,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> recommend(Integer size, Boolean[] receiveCategories) {
-
         Map<String, Object> params = new HashMap<>();
+        Map<String,Object> map = ThreadLocalUtil.get();
+        Integer userId = (Integer) map.get("id");
         params.put("size", size);
         List<Integer> categories = new ArrayList<>();
         for (int i = 0; i < receiveCategories.length; ++i) {
@@ -76,8 +78,33 @@ public class ArticleServiceImpl implements ArticleService {
         }
         params.put("categories", categories);
 
+        Queue<Long> recentArticleQueue = userRecentArticleMap.computeIfAbsent(Long.valueOf(userId), k -> new ConcurrentLinkedQueue<>());
+        List<Long> excludedIds = new ArrayList<>(recentArticleQueue);
+        params.put("excludedIds", excludedIds);
+
         List<Article> articles = articleMapper.recommend(params);
+
+        for (Article article : articles) {
+            recentArticleQueue.add(Long.valueOf(article.getId()));
+            if (recentArticleQueue.size() > QUEUE_MAX_SIZE) {
+                recentArticleQueue.poll();
+            }
+        }
+
         return articles;
     }
 
+    @Override
+    public List<Article> searchByTitle(String title) {
+        return articleMapper.searchByTitle(title);
+    }
+
+    @Override
+    public List<Article> myAlllist() {
+        Map<String,Object> map = ThreadLocalUtil.get();
+        Integer userId = (Integer)map.get("id");
+        List<Article> articles = articleMapper.myAllList(userId);
+
+        return articles;
+    }
 }

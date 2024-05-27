@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Bubble with Triangle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-bubble">
+            你好，这是一条消息！
+            <div class="triangle"></div>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-bubble {
+    position: relative;
+    max-width: 250px;
+    padding: 10px 20px;
+    background-color: #0084ff;
+    color: white;
+    border-radius: 20px;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.triangle {
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #0084ff;
+}
+
+</style>

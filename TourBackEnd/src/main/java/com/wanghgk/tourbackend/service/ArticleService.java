@@ -16,4 +16,8 @@ public interface ArticleService {
     Article findById(Integer id);
 
     List<Article> recommend(Integer size, Boolean[] receiveCategories);
+
+    List<Article> searchByTitle(String title);
+
+    List<Article> myAlllist();
 }

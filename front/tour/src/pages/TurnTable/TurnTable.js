@@ -33,7 +33,7 @@ export default function TurnTable(props) {
                         </li>
                         <li>
                             <div className={Style["card"]}><div>
-                                <span>点击对应图片可以改变推荐项目</span>
+                                <span>点击对应项改变权限设置</span>
                             </div></div>
                         </li>
                         <li>
@@ -43,7 +43,7 @@ export default function TurnTable(props) {
                         </li>
                         <li>
                             <div className={Style["card"]}><div>
-                                <span>点击中心圆可以刷新推荐项</span>
+                                <span>点击中心圆隐藏推荐项</span>
                             </div></div>
                         </li>
                         <li>

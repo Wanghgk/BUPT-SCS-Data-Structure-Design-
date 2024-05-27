@@ -1,0 +1,72 @@
+.user-info {
+    display: block;
+    width: calc(100vw - var(--left-width));
+    height: calc(100vh - var(--header-height));
+    background: var(--info-bkc);
+    --basic-info-height: 23vh;
+    --info-bkc: rgba(250,250,250,0.3);
+    backdrop-filter: blur(1px);
+    --info-text-color: #000;
+}
+
+.user-info.dark {
+    --info-bkc: rgba(50,50,50,0.7);
+    --info-text-color: #fff;
+}
+
+.basic-info {
+    display: flex;
+    flex-direction: row;
+    height: var(--basic-info-height);
+    padding: 5px;
+    border-bottom: 2px solid #000;
+}
+
+.avatar {
+    display: block;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 80px;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+}
+
+.names {
+    width: 70%;
+}
+
+.nickname {
+    display: block;
+    text-align: right;
+    height: 100%;
+    line-height: var(--basic-info-height);
+    font-size: 50px;
+    font-family: "Sedan SC","华文中宋";
+    color: var(--info-text-color);
+}
+
+.diaries-list {
+    display: flex;
+    flex-direction: row;
+    height: 33vh;
+    width: calc(100vw - var(--left-width));
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #000;
+    margin-top: 2vh;
+}
+
+.diaries-list::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge, and Opera *//*隐藏滚动条*/
+}
+
+.diary {
+    cursor: pointer;
+    margin-right: 5px;
+    margin-left: 5px;
+}

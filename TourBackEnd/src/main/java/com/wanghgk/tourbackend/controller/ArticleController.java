@@ -33,6 +33,13 @@ public class ArticleController {
         return Result.success(pb);
     }
 
+    @GetMapping("/list")
+    public Result<List<Article>> myAllList(){
+        List<Article> articles = articleService.myAlllist();
+
+        return Result.success(articles);
+    }
+
     @GetMapping("/detail")
     public Result<Article> detail(Integer id){
         Article article = articleService.findById(id);
@@ -45,5 +52,11 @@ public class ArticleController {
         List<Article> articles = articleService.recommend(size, receiveCategories);
 
         return Result.success(articles);
+    }
+
+
+    @GetMapping("/search")
+    public List<Article> searchByTitle(@RequestParam String title) {
+        return articleService.searchByTitle(title);
     }
 }
