@@ -7,6 +7,7 @@
     backdrop-filter: blur(3px);
     z-index: 10;
     width: 272px;
+    cursor: auto;
 }
 
 .operation input {
@@ -168,4 +169,78 @@
     font-size: 15px;
     text-align: center;
     font-family: 微软雅黑;
+}
+
+.path-detail-container {
+    display: block;
+    width: 100%;
+    height: 250.5px;
+    overflow: hidden;
+    background: transparent;
+    user-select: none;
+    pointer-events: none;
+    transform: translateY(-250.5px);
+}
+
+.path-detail {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 250.5px;
+    background-color: #f7f7f7;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-250.5px);
+    transition: 0.5s ease-in;
+}
+
+.path-detail.show {
+    height: 250.5px;
+    transform: translateY(0);
+    transition: 0.5s ease-in;
+    pointer-events: auto;
+}
+
+.path-detail .head {
+    background: #f0f2f5;
+    padding: 5px;
+    color: #007bff;
+    font-weight: bolder;
+    font-family: 华文中宋;
+}
+
+.paths {
+    height: 250.5px;
+    overflow: scroll;
+}
+
+.paths::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge, and Opera *//*隐藏滚动条*/
+}
+
+.path-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.path-item:hover {
+    background-color: #eaeaea;
+}
+
+.path-road-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.path-road-distance {
+    font-size: 14px;
+    color: #888;
 }

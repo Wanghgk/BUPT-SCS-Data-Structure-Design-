@@ -18,6 +18,10 @@ export default function Map() {
     const [activeNodes,setActiveNodes] = useState([])
     const [hoverNode,setHoverNode] = useState({id:-1,name:"",show:false,mouseScreenX:-1,mouseScreenY:-1})
     const [flushDetail,setFlushDetail] = useState(-1)
+    const [nowPosition,setNowPosition] = useState(47)
+    const [vehicle,setVehicle] = useState(0)
+    const nowVehicle = useRef(0)
+
 
 
     const token = sessionStorage.getItem("token")
@@ -86,6 +90,16 @@ export default function Map() {
         setFlushDetail(node)
     }
 
+    function changePosition(id) {
+        setNowPosition(id)
+    }
+
+    function switchVehicle(kind) {
+        // console.log(kind)
+        setVehicle(kind)
+        nowVehicle.current = kind
+    }
+
     return (
         <div className={Style["map"]}
              ref={mapRef}
@@ -94,13 +108,33 @@ export default function Map() {
              onMouseUp={dragOver}>
             <div className={Style["blank"]}
                  style={{display:hoverNode.show?"block":"none","--client-x":hoverNode.mouseScreenX, "--client-y":hoverNode.mouseScreenY}}>
-                <div className={Style["blank-name"]}>{hoverNode.name}</div>
+                <div className={Style["blank-name"]}>
+                    {/*<div>id:{hoverNode.id}</div>*/}
+                    <div>{hoverNode.name}</div>
+                </div>
                 <div className={Style["triangle"]}></div>
             </div>
             <div onClick={(e)=>{e.stopPropagation()}}
                  onMouseDown={(e)=>{e.stopPropagation()}}>
-                <Operation enActive={enActive} flushDetail={flushDetail}></Operation>
-
+                <Operation enActive={enActive} flushDetail={flushDetail} changePosition={changePosition} vehicle={nowVehicle.current} roads={roads}></Operation>
+                <div className={Style["settings"]} onClick={(e)=>{e.stopPropagation()}}>
+                    <div className={Style["setting"]} onClick={()=>{switchVehicle(0)}}>
+                        <i className={["iconfont", "icon-qiche", `${Style["icon"]}`].join(' ')} style={nowVehicle.current===0?{color:"#0b6fea"}:{}}></i>
+                        <div className={Style["setting-name"]} style={nowVehicle.current===0?{color:"#0b6fea"}:{}}>汽车</div>
+                    </div>
+                    <div className={Style["setting"]} onClick={()=>{switchVehicle(1)}}>
+                        <i className={["iconfont", "icon-mbile", `${Style["icon"]}`].join(' ')} style={nowVehicle.current===1?{color:"#0b6fea"}:{}}></i>
+                        <div className={Style["setting-name"]} style={nowVehicle.current===1?{color:"#0b6fea"}:{}}>电动车</div>
+                    </div>
+                    <div className={Style["setting"]} onClick={()=>{switchVehicle(2)}}>
+                        <i className={["iconfont", "icon-zihangche", `${Style["icon"]}`].join(' ')} style={nowVehicle.current===2?{color:"#0b6fea"}:{}}></i>
+                        <div className={Style["setting-name"]} style={nowVehicle.current===2?{color:"#0b6fea"}:{}}>自行车</div>
+                    </div>
+                    <div className={Style["setting"]} onClick={()=>{switchVehicle(3)}}>
+                        <i className={["iconfont", "icon-buxing", `${Style["icon"]}`].join(' ')} style={nowVehicle.current===3?{color:"#0b6fea"}:{}}></i>
+                        <div className={Style["setting-name"]} style={nowVehicle.current===3?{color:"#0b6fea"}:{}}>步行</div>
+                    </div>
+                </div>
             </div>
 
             {
@@ -117,7 +151,7 @@ export default function Map() {
                                  style={{cursor:"pointer"}}
                             >
                                 <div className={Style["node"]}
-                                     style={{left: e.x - 2.5, top: e.y + 1}}></div>
+                                     style={{left: e.x - 2.5, top: e.y + 1, background:e.id===nowPosition?"#71a5f1":""}}></div>
                                 <Block pointLeft={0}
                                        pointTop={0}
                                        blockLeft={block.left-2.5}
@@ -125,8 +159,10 @@ export default function Map() {
                                        width={block.width}
                                        height={block.height}
                                        nodeId={"block" + e.id}
+                                       name={e.name}
                                        rotate={block.rotate}
                                        enableGrab={false}
+                                       showName={false}
                                        setBlockPosition={null}
                                        focusNode={null}
                                 ></Block>

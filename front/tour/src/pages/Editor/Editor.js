@@ -726,8 +726,10 @@ export default function Editor() {
                                                    width={e.block.width}
                                                    height={e.block.height}
                                                    nodeId={e.id}
+                                                   name={e.name}
                                                    rotate={e.block.rotate}
                                                    enableGrab={true}
+                                                   showName={false}
                                                    setBlockPosition={setBlockPosition}
                                                    focusNode={focusNode}
                                             />

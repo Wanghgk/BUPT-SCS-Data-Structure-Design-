@@ -13,6 +13,6 @@ public class Road {
     private double angle;
     private int point1;
     private int point2;
-    private int clazz;
+    private int rclass;
     private int crowding;
 }

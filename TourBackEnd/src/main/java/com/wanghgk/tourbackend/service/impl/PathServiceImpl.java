@@ -32,10 +32,10 @@ public class PathServiceImpl implements PathService {
     }
 
     @Override
-    public List<Integer> shortestPath(Integer startNodeId, Integer endNodeId) {
-        int[][][] adjacencyMatrix = getAdjacencyMatrix(false);
+    public List<Integer> shortestPath(Integer start, Integer end, Integer vehicle) {
+        int[][][] adjacencyMatrix = getAdjacencyMatrix(false, vehicle);
         DijkstraAlgorithmUtil dijkstraAlgorithmUtil = new DijkstraAlgorithmUtil(numNodes,adjacencyMatrix);
-        return dijkstraAlgorithmUtil.shortestPath(startNodeId-1, endNodeId-1);
+        return dijkstraAlgorithmUtil.shortestPath(start-1, end-1);
     }
 
     @Override
@@ -78,13 +78,19 @@ public class PathServiceImpl implements PathService {
     }
 
     @Override
-    public List<Integer> fastestPath(Integer startNodeId, Integer endNodeId) {
-        int[][][] adjacencyMatrix = getAdjacencyMatrix(true);
+    public List<Integer> fastestPath(Integer start, Integer end, Integer vehicle) {
+        int[][][] adjacencyMatrix = getAdjacencyMatrix(true, vehicle);
         DijkstraAlgorithmUtil dijkstraAlgorithmUtil = new DijkstraAlgorithmUtil(numNodes,adjacencyMatrix);
-        return dijkstraAlgorithmUtil.shortestPath(startNodeId-1, endNodeId-1);
+        return dijkstraAlgorithmUtil.shortestPath(start-1, end-1);
     }
 
-    public int[][][] getAdjacencyMatrix(boolean enableCrowding) {
+    public int[][][] getAdjacencyMatrix(boolean enableCrowding, Integer vehicle) {
+        List<Integer> vehicleBan = new ArrayList<>();
+        int[][] vehicleNotPermit = {{1,2},{2,3},{2,3},{3}};
+        for(Integer item:vehicleNotPermit[vehicle]) {
+            vehicleBan.add(item);
+        }
+
         int[][][] adjacencyMatrix = new int[2][numNodes][numNodes];
 
 
@@ -98,26 +104,33 @@ public class PathServiceImpl implements PathService {
         List<Road> roads = roadMapper.getAllRoads();
         if(enableCrowding){
             for (Road road : roads) {
-                int point1 = road.getPoint1() - 1;
-                int point2 = road.getPoint2() - 1;
-                int distance = road.getDistance();
-                int crowding = road.getCrowding();
-                int id = road.getId();
-                adjacencyMatrix[0][point1][point2] = distance * crowding;
-                adjacencyMatrix[0][point2][point1] = distance * crowding; // Assuming undirected roads
-                adjacencyMatrix[1][point1][point2] = id;
-                adjacencyMatrix[1][point2][point1] = id;
+                if(!vehicleBan.contains(road.getRclass())) {
+                    int point1 = road.getPoint1() - 1;
+                    int point2 = road.getPoint2() - 1;
+                    int distance = road.getDistance();
+                    if (road.getRclass() == 3) {
+                        distance /= 3;
+                    }
+                    int crowding = road.getCrowding();
+                    int id = road.getId();
+                    adjacencyMatrix[0][point1][point2] = distance * crowding;
+                    adjacencyMatrix[0][point2][point1] = distance * crowding; // Assuming undirected roads
+                    adjacencyMatrix[1][point1][point2] = id;
+                    adjacencyMatrix[1][point2][point1] = id;
+                }
             }
         }else {
             for (Road road : roads) {
-                int point1 = road.getPoint1() - 1;
-                int point2 = road.getPoint2() - 1;
-                int distance = road.getDistance();
-                int id = road.getId();
-                adjacencyMatrix[0][point1][point2] = distance;
-                adjacencyMatrix[0][point2][point1] = distance; // Assuming undirected roads
-                adjacencyMatrix[1][point1][point2] = id;
-                adjacencyMatrix[1][point2][point1] = id;
+                if(!vehicleBan.contains(road.getRclass())){
+                    int point1 = road.getPoint1() - 1;
+                    int point2 = road.getPoint2() - 1;
+                    int distance = road.getDistance();
+                    int id = road.getId();
+                    adjacencyMatrix[0][point1][point2] = distance;
+                    adjacencyMatrix[0][point2][point1] = distance; // Assuming undirected roads
+                    adjacencyMatrix[1][point1][point2] = id;
+                    adjacencyMatrix[1][point2][point1] = id;
+                }
             }
         }
 

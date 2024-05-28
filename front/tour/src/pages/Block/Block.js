@@ -2,7 +2,7 @@ import {useState,useRef,useEffect} from "react";
 import Style from "./Block.module.css"
 
 export default function Block(props) {
-    const {pointLeft,pointTop,blockLeft,blockTop,setBlockPosition,width,height,focusNode,nodeId,rotate,enableGrab} = props
+    const {pointLeft,pointTop,blockLeft,blockTop,setBlockPosition,width,height,focusNode,nodeId,rotate,enableGrab,showName,name} = props
 
     const [position,setPosition] = useState({left:pointLeft+blockLeft,top:pointTop+blockTop})
 
@@ -65,7 +65,7 @@ export default function Block(props) {
              }}}
              style={{left: position.left, top: position.top,width:width,height:height,"--deg":rotate}}
         >
-
+            <div className={Style["block-name"]} style={{display:showName?"block":"none",fontSize:width*height/170}}>{name}</div>
         </div>
     )
 

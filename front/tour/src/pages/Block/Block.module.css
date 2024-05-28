@@ -6,5 +6,13 @@
     transform: rotate(calc(var(--deg) * 1deg));
     background-color: #FFDAB9; /* 设置矩形的背景颜色 */
     border-radius: 10px; /* 设置矩形的圆角半径 */
+    overflow: hidden;
 }
 
+.block-name {
+    display: block;
+    color: #5e5e5e;
+    font-size: 15px;
+    font-family: 方正姚体;
+    user-select: none;
+}

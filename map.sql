@@ -24,7 +24,7 @@ CREATE TABLE `road` (
   `angle` double NOT NULL,
   `point1` int NOT NULL,
   `point2` int NOT NULL,
-  `class` int NOT NULL,
+  `rclass` int NOT NULL,
   `crowding` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)

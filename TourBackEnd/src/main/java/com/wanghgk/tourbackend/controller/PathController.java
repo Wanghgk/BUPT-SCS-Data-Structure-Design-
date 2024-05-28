@@ -19,13 +19,13 @@ public class PathController {
     private PathService pathService;
 
     @PostMapping("/shortest")
-    public Result<List<Integer>> findShortestPath(Integer start, Integer end) {
-        return Result.success(pathService.shortestPath(start, end));
+    public Result<List<Integer>> findShortestPath(Integer start, Integer end, Integer vehicle) {
+        return Result.success(pathService.shortestPath(start, end, vehicle));
     }
 
     @PostMapping("/fastest")
-    public Result<List<Integer>> findFastestPath(Integer start, Integer end) {
-        return Result.success(pathService.fastestPath(start, end));
+    public Result<List<Integer>> findFastestPath(Integer start, Integer end, Integer vehicle) {
+        return Result.success(pathService.fastestPath(start, end, vehicle));
     }
 
     @GetMapping("/nodes")

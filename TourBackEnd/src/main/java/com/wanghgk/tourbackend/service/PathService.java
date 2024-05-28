@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface PathService {
-    List<Integer> shortestPath(Integer start, Integer end);
+    List<Integer> shortestPath(Integer start, Integer end, Integer vehicle);
 
     List<Node> getAllNodes();
 
@@ -17,5 +17,5 @@ public interface PathService {
 
     List<Node> searchNodes(String keyword);
 
-    List<Integer> fastestPath(Integer start, Integer end);
+    List<Integer> fastestPath(Integer start, Integer end, Integer vehicle);
 }
