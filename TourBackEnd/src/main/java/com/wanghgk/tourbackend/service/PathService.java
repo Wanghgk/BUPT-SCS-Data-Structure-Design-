@@ -18,4 +18,10 @@ public interface PathService {
     List<Node> searchNodes(String keyword);
 
     List<Integer> fastestPath(Integer start, Integer end, Integer vehicle);
+
+    List<Integer> shortestMultiPath(Integer start, List<Integer> ends, Integer vehicle);
+
+    void setIn(boolean isIn);
+
+    void viewNode(Integer id);
 }

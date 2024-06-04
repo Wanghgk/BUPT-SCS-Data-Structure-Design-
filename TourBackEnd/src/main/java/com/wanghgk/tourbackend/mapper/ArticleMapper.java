@@ -4,6 +4,7 @@ import com.wanghgk.tourbackend.pojo.Article;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,10 @@ public interface ArticleMapper {
     List<Article> recommend(Map<String, Object> params);
 
     List<Article> searchByTitle(String title);
+
+    @Update("update article set total_score=#{totalScore},total_user=#{totalUser} where id=#{id}")
+    void scoreArtical(Integer id, Integer totalScore, Integer totalUser);
+
+    @Update("update article set total_view=#{view} where id=#{id}")
+    void viewArtical(Integer id,Integer view);
 }

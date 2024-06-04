@@ -5,11 +5,14 @@ import com.github.pagehelper.PageHelper;
 import com.wanghgk.tourbackend.mapper.ArticleMapper;
 import com.wanghgk.tourbackend.pojo.Article;
 import com.wanghgk.tourbackend.pojo.PageBean;
+import com.wanghgk.tourbackend.pojo.Result;
 import com.wanghgk.tourbackend.service.ArticleService;
+import com.wanghgk.tourbackend.utils.HuffmanCoding;
 import com.wanghgk.tourbackend.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,6 +27,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ConcurrentHashMap<Long, Queue<Long>> userRecentArticleMap = new ConcurrentHashMap<>();
     private final int QUEUE_MAX_SIZE = 10;
+    HuffmanCoding huffmanCoding = new HuffmanCoding();
     @Override
     public void add(Article article) {
         //补充属性值
@@ -33,6 +37,11 @@ public class ArticleServiceImpl implements ArticleService {
         Map<String,Object> map = ThreadLocalUtil.get();
         Integer userId = (Integer) map.get("id");
         article.setCreateUser(userId);
+        //使用Huffman压缩文本
+//        String content = article.getContent();
+//
+//        String compressedContent = huffmanCoding.compress(content);
+//        article.setContent(compressedContent);
 
         articleMapper.add(article);
     }
@@ -61,6 +70,8 @@ public class ArticleServiceImpl implements ArticleService {
     public Article findById(Integer id) {
 
         Article article = articleMapper.findById(id);
+        //使用Huffman解压文本
+//        article.setContent(huffmanCoding.decompress(article.getContent()));
         return article;
     }
 
@@ -106,5 +117,22 @@ public class ArticleServiceImpl implements ArticleService {
         List<Article> articles = articleMapper.myAllList(userId);
 
         return articles;
+    }
+
+    @Override
+    public void scoreArtical(Integer id, Integer score) {
+//        System.out.println(id);
+        Article article = articleMapper.findById(id);
+        Integer newScore = article.getTotalScore()+score;
+        Integer newUsers = article.getTotalUser()+1;
+
+        articleMapper.scoreArtical(id,newScore,newUsers);
+    }
+
+    @Override
+    public void viewArtical(Integer id) {
+        Article article = articleMapper.findById(id);
+        Integer view = article.getTotalView() + 1;
+        articleMapper.viewArtical(id,view);
     }
 }

@@ -11,4 +11,5 @@ public class Node {
     private String roads;
     private String name;
     private String block;
+    private Integer totalView;
 }

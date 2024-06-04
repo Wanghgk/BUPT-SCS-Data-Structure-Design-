@@ -8,6 +8,7 @@ import Block from "../Block/Block";
 import Road from "../Road/Road";
 import Operation from "../Operation/Operation";
 import axios from "axios";
+import qs from "qs";
 
 export default function Map() {
     const [nodes, setNodes] = useState([])
@@ -16,9 +17,11 @@ export default function Map() {
     const [mapHeight, setMapHeight] = useState(Data.height)
     const [base, setBase] = useState(Data.base)
     const [activeNodes,setActiveNodes] = useState([])
+    const [targets,setTargets] = useState([])
     const [hoverNode,setHoverNode] = useState({id:-1,name:"",show:false,mouseScreenX:-1,mouseScreenY:-1})
     const [flushDetail,setFlushDetail] = useState(-1)
     const [nowPosition,setNowPosition] = useState(47)
+    const [focusNode,setFocusNode] = useState(-1)
     const [vehicle,setVehicle] = useState(0)
     const nowVehicle = useRef(0)
 
@@ -26,6 +29,7 @@ export default function Map() {
 
     const token = sessionStorage.getItem("token")
     const darkness = useSelector(state => state.darkness.value)
+    const inRef = useRef(false)
 
     const draggingRef = useRef({
         isDragging: false,
@@ -52,6 +56,7 @@ export default function Map() {
             .catch(err=>{
                 console.log(err)
             })
+        // mapScrollTo(959,643)//北邮位置
     },[])
 
     function dragBegin(e){
@@ -100,6 +105,68 @@ export default function Map() {
         nowVehicle.current = kind
     }
 
+    function mapScrollTo(id,left,top) {
+        setFocusNode(id)
+        const width = mapRef.current.clientWidth
+        const height = mapRef.current.clientHeight
+        // console.log(width,height)
+        const position = {
+            left: (left - width / 2),
+            top: (top - height / 2),
+            behavior: "smooth"
+        }
+        mapRef.current.scrollTo(position)
+    }
+
+    function changeTarget(id,add) {
+        let newTargets = targets
+        if(add){
+            if(id !== nowPosition)
+                setTargets([...newTargets,id])
+        }else {
+            newTargets = newTargets.filter((item)=>{
+                return item !== id
+            })
+            setTargets([...newTargets])
+        }
+
+    }
+
+    function goin(goIn,nowNode) {
+        const header = {headers:{"authorization" : token}}
+        inRef.current = goIn;
+        const data = {isIn:goIn}
+        setNodes([])
+        setRoads([])
+        if(goIn) {
+            axios.post("http://127.0.0.1:8080/path/view",qs.stringify({id:nowNode}),header)
+        }
+            axios.post("http://127.0.0.1:8080/path/setIn",qs.stringify(data),header)
+                .then((res)=>{
+                    axios.get("http://127.0.0.1:8080/path/nodes",header)
+                        .then(res=>{
+                            // console.log(res)
+                            setNodes(res.data.data)
+                        })
+                        .catch(err=>{
+                            console.log(err)
+                        })
+                    axios.get("http://127.0.0.1:8080/path/roads",header)
+                        .then(res=>{
+                            // console.log(res)
+                            setRoads(res.data.data)
+                        })
+                        .catch(err=>{
+                            console.log(err)
+                        })
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+
+
+    }
+
     return (
         <div className={Style["map"]}
              ref={mapRef}
@@ -116,7 +183,7 @@ export default function Map() {
             </div>
             <div onClick={(e)=>{e.stopPropagation()}}
                  onMouseDown={(e)=>{e.stopPropagation()}}>
-                <Operation enActive={enActive} flushDetail={flushDetail} changePosition={changePosition} vehicle={nowVehicle.current} roads={roads}></Operation>
+                <Operation enActive={enActive} flushDetail={flushDetail} changePosition={changePosition} mapScrollTo={mapScrollTo} changeTarget={changeTarget} vehicle={nowVehicle.current} roads={roads} targets={targets} goin={goin}></Operation>
                 <div className={Style["settings"]} onClick={(e)=>{e.stopPropagation()}}>
                     <div className={Style["setting"]} onClick={()=>{switchVehicle(0)}}>
                         <i className={["iconfont", "icon-qiche", `${Style["icon"]}`].join(' ')} style={nowVehicle.current===0?{color:"#0b6fea"}:{}}></i>
@@ -151,7 +218,7 @@ export default function Map() {
                                  style={{cursor:"pointer"}}
                             >
                                 <div className={Style["node"]}
-                                     style={{left: e.x - 2.5, top: e.y + 1, background:e.id===nowPosition?"#71a5f1":""}}></div>
+                                     style={{left: e.x - 2.5, top: e.y + 1, background:e.id===nowPosition?"#71a5f1":e.id===focusNode?"#80c05e":targets.includes(e.id)?"#f6e65b":""}}></div>
                                 <Block pointLeft={0}
                                        pointTop={0}
                                        blockLeft={block.left-2.5}

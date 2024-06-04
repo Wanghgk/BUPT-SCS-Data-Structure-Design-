@@ -1,0 +1,25 @@
+.author-info {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    border: 1px solid #a8aaad;
+    border-radius: 25px;
+    box-shadow: 0 1px 2px 1px #d2d4d5;
+    align-items: center;
+}
+
+.author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 0 10px;
+}
+
+.author-nickname {
+    height: 50px;
+    line-height: 50px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bolder;
+    color: var(--text-color);
+}

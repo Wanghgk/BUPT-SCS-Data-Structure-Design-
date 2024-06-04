@@ -19,9 +19,11 @@ export default function Publish() {
     const content = useRef()
     const popUp = useRef()
     let enableSubmit = useRef(true)
-    const [src, setSrc] = useState("none")
+    const srcRef = useRef("none")
+    const [src, setSrc] = useState([])
     const [popUpContent,setPopUpContent] = useState("")
-
+    const kindRef = useRef(1)
+    const [kind,setKind] = useState(1)
     useEffect(() => {
         if (darkness) {
             publish.current.classList.add(Style["dark"])
@@ -34,7 +36,7 @@ export default function Publish() {
         upload.current.click()
     }
 
-    function handleImageChange(e) {
+    function handleImageAdd(e) {
         try {
             let imgUrl = e.target.files[0]
 
@@ -56,7 +58,18 @@ export default function Publish() {
                     .then((res) => {
                         // console.log(res)
                         // console.log(res.data.data)
-                        setSrc("http://" + res.data.data)
+                        if((srcRef.current + ",http://" + res.data.data).length > 1000){
+                            setPopUpContent("图片超限")
+                            popUp.current.classList.add(Style["pop-up-active"])
+                            setTimeout(()=>{
+                                popUp.current.classList.remove(Style["pop-up-active"])
+                                enableSubmit.current = true;
+                            },625)
+                        }else {
+                            srcRef.current = srcRef.current + ",http://" + res.data.data
+                            setSrc(["http://" + res.data.data])
+                        }
+
 
                     })
                     .catch((err) => {
@@ -83,8 +96,8 @@ export default function Publish() {
             const data = {
                 title: title.current.value,
                 content: content.current.value,
-                coverImg: src,
-                categoryId: 1
+                coverImg: srcRef.current.replace(/none,/g,""),
+                categoryId: kindRef.current
             }
 
 
@@ -139,10 +152,62 @@ export default function Publish() {
                               ref={content}
                     />
                 </div>
+                <div className={Style["kinds"]}>
+                    <div className={Style["kind"]}>
+                        <input type={"radio"} value={"路口"} name={"node_kind"} checked={kindRef.current === 1}
+                               onChange={() => {
+                                   kindRef.current = 1
+                                   setKind(1)
+                               }}/><span>游记</span>
+                    </div>
+
+                    <div className={Style["kind"]}>
+                        <input type={"radio"} value={"景点"} name={"node_kind"} checked={kindRef.current === 2}
+                               onChange={() => {
+                                   kindRef.current = 2
+                                   setKind(2)
+                               }}/><span>随笔</span>
+                    </div>
+
+                    <div className={Style["kind"]}>
+                        <input type={"radio"} value={"景点"} name={"node_kind"} checked={kindRef.current === 3}
+                               onChange={() => {
+                                   kindRef.current = 3
+                                   setKind(3)
+                               }}/><span>日记</span>
+                    </div>
+
+                    <div className={Style["kind"]}>
+                        <input type={"radio"} value={"景点"} name={"node_kind"} checked={kindRef.current === 4}
+                               onChange={() => {
+                                   kindRef.current = 4
+                                   setKind(4)
+                               }}/><span>分享</span>
+                    </div>
+
+                    <div className={Style["kind"]}>
+                        <input type={"radio"} value={"景点"} name={"node_kind"} checked={kindRef.current === 5}
+                               onChange={() => {
+                                   kindRef.current = 5
+                                   setKind(5)
+                               }}/><span>杂谈</span>
+                    </div>
+
+                </div>
                 <div className={Style["form-group"]}>
                     <h2>上传图片：</h2>
-                    <img className={Style["preview-img"]} src={src}
-                         style={{visibility: (src === "none") ? "hidden" : "visible"}}/>
+                    <div className={Style["images"]}>
+                        {
+                            srcRef.current.split(",").map((item) => {
+                                return (
+                                    <img className={Style["preview-img"]} src={item}
+                                         style={{display: (item === "none") ? "none" : "block"}}/>
+                                )
+
+                            })
+                        }
+                    </div>
+
                     <button className={Style["button"]} id={Style["upload-button"]} onClick={chooseFile}>
                         <i className={["iconfont", "icon-shangchuan", `${Style["icon"]}`].join(' ')}></i>上传图片(一张)
                     </button>
@@ -151,8 +216,9 @@ export default function Publish() {
                         type="file"
                         id="image"
                         accept="image/*"
+                        multiple={true}
                         onChange={(e) => {
-                            handleImageChange(e)
+                            handleImageAdd(e)
                         }}
                         ref={upload}
                     />
@@ -160,8 +226,12 @@ export default function Publish() {
                 <button className={Style["button"]} id={Style["submit"]} type="submit" onClick={addArticle}>提交
                 </button>
             </div>
-            <div className={Style["pop-up-container"]} ref={popUp} onClick={(e)=>{e.preventDefault()}}>
-                <PopUp width={200} content={popUpContent} height={50} fontSize={20} background={darkness?"linear-gradient(rgba(78, 158, 255, 0.5), rgba(39, 113, 255, 0.5))":"linear-gradient(rgba(78, 158, 255, 0.5), rgba(39, 113, 255, 0.5))"} textColor={darkness?"#f0f0f0":"#c0c0c0"}></PopUp>
+            <div className={Style["pop-up-container"]} ref={popUp} onClick={(e) => {
+                e.preventDefault()
+            }}>
+                <PopUp width={200} content={popUpContent} height={50} fontSize={20}
+                       background={darkness ? "linear-gradient(rgba(78, 158, 255, 0.5), rgba(39, 113, 255, 0.5))" : "linear-gradient(rgba(78, 158, 255, 0.5), rgba(39, 113, 255, 0.5))"}
+                       textColor={darkness ? "#f0f0f0" : "#c0c0c0"}></PopUp>
             </div>
         </div>
     )

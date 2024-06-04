@@ -4,6 +4,7 @@ package com.wanghgk.tourbackend.service;
 import com.wanghgk.tourbackend.pojo.Article;
 import com.wanghgk.tourbackend.pojo.PageBean;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ArticleService {
@@ -20,4 +21,8 @@ public interface ArticleService {
     List<Article> searchByTitle(String title);
 
     List<Article> myAlllist();
+
+    void scoreArtical(Integer id, Integer score);
+
+    void viewArtical(Integer id);
 }

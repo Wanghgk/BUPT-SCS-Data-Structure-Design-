@@ -11,10 +11,7 @@ import com.wanghgk.tourbackend.utils.KMPUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PathServiceImpl implements PathService {
@@ -23,6 +20,8 @@ public class PathServiceImpl implements PathService {
     private final RoadMapper roadMapper;
 
     private int numNodes;
+
+    private boolean isInNow = false;
 
     @Autowired
     public PathServiceImpl(NodeMapper nodeMapper, RoadMapper roadMapper) {
@@ -35,24 +34,35 @@ public class PathServiceImpl implements PathService {
     public List<Integer> shortestPath(Integer start, Integer end, Integer vehicle) {
         int[][][] adjacencyMatrix = getAdjacencyMatrix(false, vehicle);
         DijkstraAlgorithmUtil dijkstraAlgorithmUtil = new DijkstraAlgorithmUtil(numNodes,adjacencyMatrix);
-        return dijkstraAlgorithmUtil.shortestPath(start-1, end-1);
+        return dijkstraAlgorithmUtil.shortestPath(start-1, end-1, true);
     }
 
     @Override
     public List<Node> getAllNodes() {
-        List<Node> nodes = nodeMapper.getAllNodes();
+
+        List<Node> nodes;
+        if(isInNow) {
+            nodes = nodeMapper.getAllNodesB();
+        } else {
+            nodes = nodeMapper.getAllNodes();
+        }
         return nodes;
     }
 
     @Override
     public List<Road> getAllRoads() {
-        List<Road> roads = roadMapper.getAllRoads();
+        List<Road> roads;
+        if(isInNow) {
+            roads = roadMapper.getAllRoadsB();
+        } else {
+            roads = roadMapper.getAllRoads();
+        }
         return roads;
     }
 
     @Override
     public List<Node> searchNodes(String keyword) {
-        List<Node> allNodes = nodeMapper.getAllNodes();
+        List<Node> allNodes = isInNow ? nodeMapper.getAllNodes() : nodeMapper.getAllNodesB();
         List<NodeMatch> matchingNodes = new ArrayList<>();
 
         for (Node node : allNodes) {
@@ -81,7 +91,72 @@ public class PathServiceImpl implements PathService {
     public List<Integer> fastestPath(Integer start, Integer end, Integer vehicle) {
         int[][][] adjacencyMatrix = getAdjacencyMatrix(true, vehicle);
         DijkstraAlgorithmUtil dijkstraAlgorithmUtil = new DijkstraAlgorithmUtil(numNodes,adjacencyMatrix);
-        return dijkstraAlgorithmUtil.shortestPath(start-1, end-1);
+        return dijkstraAlgorithmUtil.shortestPath(start-1, end-1, true);
+    }
+
+    @Override
+    public List<Integer> shortestMultiPath(Integer start, List<Integer> ends, Integer vehicle) {
+        System.out.println(start);
+        System.out.println(ends);
+        System.out.println(vehicle);
+//        List<Node> nodes = nodeMapper.getAllNodes();
+//        List<Road> roads = roadMapper.getAllRoads();
+        int[][][] adjacencyMatrix = getAdjacencyMatrix(false, vehicle);
+
+
+        List<Integer> optimalPath = new ArrayList<>();
+        Set<Integer> toVisit = new HashSet<>(ends);
+//        optimalPath.add(start);
+
+        int currentNode = start;
+        int preNode = start;
+
+        while (!toVisit.isEmpty()) {
+            int nextNode = -1;
+            int shortestDistance = Integer.MAX_VALUE;
+            List<Integer> finalPath = new ArrayList<>();
+            for (int node : toVisit) {
+                DijkstraAlgorithmUtil dijkstraAlgorithmUtil = new DijkstraAlgorithmUtil(numNodes,adjacencyMatrix);
+                List<Integer> path = dijkstraAlgorithmUtil.shortestPath(currentNode-1, node-1, false);
+                int distance = 0;
+                int startNode = -1;
+                for(int pathNode : path) {
+                    if(startNode != -1) {
+                        distance += adjacencyMatrix[0][startNode-1][pathNode-1];
+                    }
+                    startNode = pathNode;
+                }
+                if (distance < shortestDistance) {
+                    finalPath = path;
+                    shortestDistance = distance;
+                    nextNode = node;
+                }
+            }
+            for (int node : finalPath) {
+                if(preNode != -1) {
+                    optimalPath.add(adjacencyMatrix[1][preNode-1][node-1]);
+                }
+                preNode = node;
+            }
+
+            currentNode = nextNode;
+            toVisit.remove(nextNode);
+        }
+
+        return optimalPath;
+    }
+
+    @Override
+    public void setIn(boolean isIn) {
+        isInNow = isIn;
+        numNodes = nodeMapper.getMaxNodeIdB();
+    }
+
+    @Override
+    public void viewNode(Integer id) {
+        Node node = nodeMapper.getById(id);
+        Integer newTotalView = node.getTotalView()+1;
+        nodeMapper.viewNode(id,newTotalView);
     }
 
     public int[][][] getAdjacencyMatrix(boolean enableCrowding, Integer vehicle) {
@@ -101,7 +176,12 @@ public class PathServiceImpl implements PathService {
             }
         }
 
-        List<Road> roads = roadMapper.getAllRoads();
+        List<Road> roads;
+        if(isInNow) {
+            roads = roadMapper.getAllRoadsB();
+        } else {
+            roads = roadMapper.getAllRoads();
+        }
         if(enableCrowding){
             for (Road road : roads) {
                 if(!vehicleBan.contains(road.getRclass())) {

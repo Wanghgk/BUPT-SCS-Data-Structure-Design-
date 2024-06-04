@@ -44,4 +44,11 @@ public class UserServiceImpl implements UserService {
         Integer id = (Integer) map.get("id");
         userMapper.updateAvatar(avatarUrl,id);
     }
+
+    @Override
+    public User findById(Integer id) {
+        User user = userMapper.findById(id);
+//        user.setPassword("******");
+        return user;
+    }
 }

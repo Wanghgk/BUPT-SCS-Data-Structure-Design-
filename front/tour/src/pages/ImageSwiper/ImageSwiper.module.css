@@ -1,0 +1,77 @@
+.wrap {
+    width: 800px;
+    height: calc(100vh - var(--header-height));
+    overflow: hidden;
+    position: absolute;
+}
+
+.swiper {
+    /*overflow: hidden;*/
+    display: flex;
+    flex-direction: row;
+    --img: 1;
+    --total-img: 5;
+    width: calc(800px* var(--total-img));
+    height: calc(100vh - var(--header-height));
+    position: absolute;
+    left: calc(-1 * var(--img) * 800px);
+    transition: 0.3s;
+}
+
+.swiper-item {
+    width: 800px;
+    height: calc(100vh - var(--header-height));
+}
+
+.swiper-item img {
+    max-width: 800px;
+    margin-top: 5vw;
+    max-height: calc(80vh - var(--header-height));
+}
+
+.switch {
+    display: block;
+    height: 60px;
+    width: 60px;
+    margin-top: calc(50vh - 25px - var(--header-height));
+    border-radius: 50%;
+    background: rgba(100,100,100,0.1);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.switch:hover {
+    background: rgba(100,100,100,0.5);
+}
+
+.switch-left {
+    position: absolute;
+    left: 0;
+}
+
+.switch-left .arrow {
+    margin-left: 3px;
+
+}
+
+.switch-right {
+    position: absolute;
+    right: 0;
+}
+
+.switch-right .arrow {
+    margin-left: 7px;
+}
+
+.arrow {
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin: auto;
+    margin-top: 4px;
+}
+
+.arrow::before {
+    font-size: 50px;
+    color: rgba(146, 201, 203, 0.5);
+}

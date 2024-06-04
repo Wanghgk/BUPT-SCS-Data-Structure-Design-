@@ -79,6 +79,13 @@ public class UserController {
 
     }
 
+    @PostMapping("/searchUser")
+    public Result<User> searchUser(Integer id) {
+        User user = userService.findById(id);
+
+        return Result.success(user);
+    }
+
     @PutMapping("/update")
     public Result update(@RequestBody @Validated User user) {
         userService.update(user);

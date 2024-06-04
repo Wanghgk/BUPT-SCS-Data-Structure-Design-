@@ -17,11 +17,13 @@ public class Article {
     @NotEmpty
     private String content;
     @NotEmpty
-    @URL
     private String coverImg;
     @NotNull
     private Integer categoryId; //文章分类ID
     private Integer createUser;
     private LocalDateTime createTime;  //创建时间
     private LocalDateTime updateTime;  //更新时间
+    private Integer totalScore;
+    private Integer totalUser;
+    private Integer totalView;
 }

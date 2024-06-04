@@ -14,9 +14,15 @@
     --title-color: #0f0f0f;
 }
 
+ul.slider {
+    display: flex;
+    flex-direction: row;
+}
+
 .slider-container {
     width: 66%;
     height: calc(100vh - var(--header-height));
+    white-space: nowrap;
 }
 .slider-container img {
     display: block;
@@ -58,4 +64,30 @@
     margin-bottom: 15px;
     text-indent: 2em;
     color: var(--text-color);
+}
+
+.star-score {
+    display: block;
+    margin: auto;
+}
+
+.post-button {
+    display: block;
+    width: 30%;
+    height: 50px;
+    min-width: 120px;
+    border-radius: 15px;
+    text-align: center;
+    line-height: 50px;
+    margin: auto;
+    background: #5ac8f1;
+    color: #e4f5fc;
+    font-size: 25px;
+    font-family: 华文中宋;
+    cursor: pointer;
+}
+
+.post-button:hover {
+    background: #35b8f5;
+    color: #fcfdff;
 }

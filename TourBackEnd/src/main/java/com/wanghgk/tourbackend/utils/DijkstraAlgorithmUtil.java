@@ -18,7 +18,7 @@ public class DijkstraAlgorithmUtil {
         this.numNodes = numNodes;
     }
 
-    public List<Integer> shortestPath(int startNode, int endNode) {
+    public List<Integer> shortestPath(int startNode, int endNode, boolean isRoad) {
         int[] dist = new int[numNodes];
         boolean[] visited = new boolean[numNodes];
         int[] previous = new int[numNodes]; // 用于记录节点
@@ -57,7 +57,7 @@ public class DijkstraAlgorithmUtil {
         }
 
 //        System.out.println(Arrays.toString(adjacencyMatrix[1]));
-        return constructPath(startNode, endNode, previous, gone);
+        return constructPath(startNode, endNode, previous, gone, isRoad);
     }
 
     private int findMinDistanceNode(int[] dist, boolean[] visited) {
@@ -80,11 +80,17 @@ public class DijkstraAlgorithmUtil {
         return minDistNode;
     }
 
-    private List<Integer> constructPath(int startNode, int endNode, int[] previous, int[] gone) {
+    private List<Integer> constructPath(int startNode, int endNode, int[] previous, int[] gone, boolean isRoad) {
         List<Integer> path = new ArrayList<>();
         for (int at = endNode; at != -1 && gone[at] != -1; at = previous[at]) {
 //            System.out.println(at);
-            path.add(gone[at]);
+            if(isRoad){
+                path.add(gone[at]);//返回路径
+
+            }else {
+                path.add(at+1);//返回节点
+
+            }
         }
         Collections.reverse(path);
 //        if (path.get(0) == startNode+1) {

@@ -1,0 +1,11 @@
+.stars-row {
+    display: flex;
+    flex-direction: row;
+    user-select: none;
+}
+
+.star {
+    display: block;
+    font-size: 60px;
+    margin: auto;
+}

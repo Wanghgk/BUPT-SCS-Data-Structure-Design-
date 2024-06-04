@@ -9,7 +9,7 @@ export default function ArticalCard(props) {
 
     return (
         <div className={Style["artical-card"]}>
-            <img src={imgUrl} alt={"图片要逃走啦!"} style={{maxHeight:small?200:"",minHeight:small?100:"",height:small?171.5:""}}/>
+            <img src={imgUrl.split(",")[0]} alt={"图片要逃走啦!"} style={{maxHeight:small?200:"",minHeight:small?100:"",height:small?171.5:""}}/>
             <span>{title}</span>
         </div>
     )

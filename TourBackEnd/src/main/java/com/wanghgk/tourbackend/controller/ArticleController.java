@@ -54,9 +54,22 @@ public class ArticleController {
         return Result.success(articles);
     }
 
-
     @GetMapping("/search")
     public List<Article> searchByTitle(@RequestParam String title) {
         return articleService.searchByTitle(title);
+    }
+
+    @PostMapping("/score")
+    public Result scoreArtical(Integer id,Integer score) {
+
+        articleService.scoreArtical(id, score);
+
+        return Result.success();
+    }
+    @PostMapping("/view")
+    public Result viewArtical(Integer id) {
+        articleService.viewArtical(id);
+
+        return Result.success();
     }
 }
